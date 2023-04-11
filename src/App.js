@@ -118,7 +118,7 @@ function App() {
   // helper function that defines animation steps, and updates inputs values in states
   const incrementX0 = () => {
     iterativeVal += 1
-    if (iterativeVal > dataObj.parametersObj.t.max) { iterativeVal = 0 }
+    if (iterativeVal > dataObj.parametersObj.general.t.max) { iterativeVal = 0 }
     setInputVals(prevState => ({ ...prevState, t: iterativeVal.toFixed(2) }))
   }
   const formatNumber = (num, maxLength) => {
