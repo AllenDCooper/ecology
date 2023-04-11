@@ -1,5 +1,5 @@
 const Logistic = {
-    key: 1, 
+    key: 1,
     parametersObj: {
         n0: {
             start: 10,
@@ -209,7 +209,7 @@ const Logistic = {
         },
     },
     graphSettings: {
-        aspectRatio: 1.6,
+        aspectRatio: 1,
     },
     modelSettings: {
         usingDiscrete: true

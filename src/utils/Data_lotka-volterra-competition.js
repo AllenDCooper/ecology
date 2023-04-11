@@ -1,7 +1,7 @@
-const Exponential = {
+const LotkaVolterraCompetition = {
   key:0,
   parametersObj: {
-    n0: {
+    n01: {
       start: 10,
       min: 0,
       max: 200,
@@ -13,11 +13,59 @@ const Exponential = {
         Discrete: true
       }
     },
-    rMax: {
-      start: 1,
+    n02: {
+      start: 10,
+      min: 0,
+      max: 200,
+      step: 1,
+      tooltipName: [<span>N<sub>0</sub></span>],
+      tooltipText: [<span><em>N<sub>0</sub></em>: starting population abundance</span>],
+      show: {
+        Continuous: true,
+        Discrete: true
+      }
+    },
+    r1: {
+      start: 0.55,
       min: -1,
       max: 2,
       step: 0.1,
+      tooltipName: [<span>r<sub>max</sub></span>],
+      tooltipText: [<span><em>r</em>: instantaneous per capita rate of population growth</span>],
+      show: {
+        Continuous: true,
+        Discrete: false
+      }
+    },
+    r2: {
+      start: 0.55,
+      min: -1,
+      max: 2,
+      step: 0.1,
+      tooltipName: [<span>r<sub>max</sub></span>],
+      tooltipText: [<span><em>r</em>: instantaneous per capita rate of population growth</span>],
+      show: {
+        Continuous: true,
+        Discrete: false
+      }
+    },
+    k1: {
+      start: 250,
+      min: 0,
+      max: 300,
+      step: 1,
+      tooltipName: [<span>r<sub>max</sub></span>],
+      tooltipText: [<span><em>r</em>: instantaneous per capita rate of population growth</span>],
+      show: {
+        Continuous: true,
+        Discrete: false
+      }
+    },
+    k2: {
+      start: 200,
+      min: 0,
+      max: 300,
+      step: 1,
       tooltipName: [<span>r<sub>max</sub></span>],
       tooltipText: [<span><em>r</em>: instantaneous per capita rate of population growth</span>],
       show: {
@@ -116,7 +164,7 @@ const Exponential = {
     },
   },
   graphSettings: {
-    aspectRatio: 2,
+    aspectRatio: 1.6,
   },
   modelSettings: {
     usingDiscrete: false,
@@ -146,4 +194,4 @@ const Exponential = {
   }
 }
 
-export default Exponential
+export default LotkaVolterraCompetition

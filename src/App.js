@@ -4,6 +4,7 @@ import './App.css';
 // import { parametersObj, dataObj.speciesObj, equationsObj, graphSettings } from './utils/Data';
 import Logistic from './utils/Data_logistic';
 import Exponential from './utils/Data_exponential'
+import LotkaVolterraCompetition from "./utils/Data_lotka-volterra-competition";
 // NORTON DESIGN SYSTEM
 import { Button, Dropdown } from '@wwnds/react';
 // COMPONENTS
@@ -11,8 +12,6 @@ import VisualOutput from "./components/VisualOutput";
 import ChartContainer from "./components/ChartContainer";
 import Header from "./components/Header";
 import SpeciesDropdown from "./components/SpeciesDropdown";
-import SpeciesDropdownContinuous from "./components/SpeciesDropdownContinuous";
-import SpeciesDropdownDiscrete from "./components/SpeciesDropdownDiscrete";
 import InputField from "./components/InputField";
 import OutputField from "./components/OutputField";
 // CHART.JS
@@ -51,11 +50,16 @@ function App() {
       setDataObj(Exponential)
       setSpeciesSelected(species)
       setInputVals(getStartObj(Exponential.parametersObj, Exponential.speciesObj.Continuous[species]))
-    } else {
+    } else if (dataSelect === "Logistic") {
       const species = Object.keys(Logistic.speciesObj.Continuous)[0]
       setDataObj(Logistic)
       setSpeciesSelected(Object.keys(Logistic.speciesObj.Continuous)[0])
       setInputVals(getStartObj(Logistic.parametersObj, Logistic.speciesObj.Continuous[species]))
+    } else if (dataSelect = "LotkaVolterraCompetition") {
+      const species = Object.keys(LotkaVolterraCompetition.speciesObj.Continuous)[0]
+      setDataObj(LotkaVolterraCompetition)
+      setSpeciesSelected(Object.keys(LotkaVolterraCompetition.speciesObj.Continuous)[0])
+      setInputVals(getStartObj(LotkaVolterraCompetition.parametersObj, LotkaVolterraCompetition.speciesObj.Continuous[species]))
     }
   }, [dataSelect])
 
@@ -88,8 +92,6 @@ function App() {
   }
   const handleLogisticType = (e) => {
     setLogisticType(e.value)
-    console.log(e.value);
-    console.log(Object.keys(dataObj.speciesObj[e.value])[0])
     setSpeciesSelected(Object.keys(dataObj.speciesObj[e.value])[0])
   }
   // UTILITIES
@@ -130,43 +132,10 @@ function App() {
         >
           <Dropdown.Option name='Exponential' selected='true'>Exponential</Dropdown.Option>
           <Dropdown.Option name='Logistic'>Logistic</Dropdown.Option>
+          <Dropdown.Option name='LotkaVolterraCompetition'>LotkaVolterraCompetition</Dropdown.Option>
         </Dropdown>
       </div>
       <Header logisticType={logisticType} header={dataObj.header} />
-      <div className="chart-pane">
-        <SpeciesDropdown
-          speciesSelected={speciesSelected}
-          handleSpeciesChange={handleSpeciesChange}
-          speciesObj={dataObj.speciesObj[logisticType]}
-          key={parseInt(dataObj.key) + (logisticType === "Continuous" ? 0 : 1)}
-          dataSelect={dataSelect}
-          logisticType={logisticType}
-        />
-        <ChartContainer
-          inputVals={inputVals}
-          equationsObj={dataObj.equationsObj}
-          tMax={dataObj.parametersObj.t.max}
-          logisticType={logisticType}
-          speciesSettings={dataObj.speciesObj[logisticType][speciesSelected].settings}
-          graphOptions={dataObj.graphSettings}
-        />
-        {showVisual ?
-          <div className='visual-container'>
-            <div className={'animation-div'}>
-              <VisualOutput
-                nValue={logisticType === "Continuous" ?
-                  dataObj.equationsObj.Continuous.calc(inputVals.t, inputVals)
-                  :
-                  dataObj.equationsObj.Discrete.calc(inputVals.t, inputVals)}
-                species={speciesSelected}
-                emoji={dataObj.speciesObj[logisticType][speciesSelected].emoji}
-              />
-            </div>
-          </div>
-          :
-          null
-        }
-      </div>
       <div className="data-pane">
         <div className="input-grp">
           {dataObj.modelSettings.usingDiscrete ?
@@ -215,17 +184,53 @@ function App() {
             null
           }
         </div>
-        <div className='btn-container'>
-          <Button variant="solid" color={'base'} onClick={handleAnimationToggle}>
+      </div>
+      <div className='data-pane2'>
+        <div className='btn-container2'>
+          <Button className='control-btn' variant="solid" color={'base'} onClick={handleAnimationToggle}>
             {!animationOn ? 'Start Animation' : 'Stop Animation'}
           </Button>
-          <Button variant="solid" color={'base'} onClick={handleVisualToggle}>
+          <Button className='control-btn' variant="solid" color={'base'} onClick={handleVisualToggle}>
             {!showVisual ? 'Show Visual' : 'Hide Visual'}
           </Button>
-          <Button variant="solid" color={'base'} onClick={handleReset}>
+          <Button className='control-btn' variant="solid" color={'base'} onClick={handleReset}>
             Reset
           </Button>
         </div>
+      </div>
+      <div className="chart-pane">
+        <SpeciesDropdown
+          speciesSelected={speciesSelected}
+          handleSpeciesChange={handleSpeciesChange}
+          speciesObj={dataObj.speciesObj[logisticType]}
+          key={parseInt(dataObj.key) + (logisticType === "Continuous" ? 0 : 1)}
+          dataSelect={dataSelect}
+          logisticType={logisticType}
+        />
+        {showVisual ?
+          <div className='visual-container'>
+            <div className={'animation-div'}>
+              <VisualOutput
+                nValue={logisticType === "Continuous" ?
+                  dataObj.equationsObj.Continuous.calc(inputVals.t, inputVals)
+                  :
+                  dataObj.equationsObj.Discrete.calc(inputVals.t, inputVals)}
+                species={speciesSelected}
+                emoji={dataObj.speciesObj[logisticType][speciesSelected].emoji}
+              />
+            </div>
+          </div>
+          :
+          null
+        }
+        <ChartContainer
+          inputVals={inputVals}
+          equationsObj={dataObj.equationsObj}
+          tMax={dataObj.parametersObj.t.max}
+          logisticType={logisticType}
+          speciesSettings={dataObj.speciesObj[logisticType][speciesSelected].settings}
+          graphOptions={dataObj.graphSettings}
+        />
       </div>
     </div >
   );

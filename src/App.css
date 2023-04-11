@@ -60,21 +60,36 @@
 
 .chart-pane {
   float: right;
-  width: 600px;
-  /* width: 100%; */
+  /* width: 600px; */
+  width: 100%;
   margin-left: 30px;
   /* margin-bottom: 50px; */
   height: 100%;
 }
 
 .data-pane {
-  width: 170px;
+  width: 100%;
   /* float: left; */
-  padding: 0px 5px 10px 5px;
+  padding: 10px 5px 10px 5px;
   text-align: left;
   display: flex;
   flex-direction: column;
   /* background-color: lightgray; */
+}
+
+/* .chart-pane {
+  float: right;
+  width: 600px;
+  margin-left: 30px;
+  height: 100%;
+} */
+
+.data-pane2 {
+  width: 100%;
+  padding: 0px 5px 10px 5px;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
 }
 
 .input-grp>* {
@@ -90,15 +105,30 @@
   width: 100%
 }
 
-.btn-container {
-  /* float: left */
+.btn-container2 {
+  width: 100%;
+  display: inline-flex;
+  flex-direction: row;
   /* margin-top: 5px; */
+  justify-content: center;
+}
+
+.control-btn {
+  width: 100%;
+  /* border-radius: 10px; */
+  margin: 0px 1px;
+}
+
+.species-dropdown-btn {
+  /* width: 100%; */
 }
 
 .btn-container>* {
   margin-top: 10px;
   display: block;
   width: 100%;
+  align-items: flex-end;
+  justify-content: center;
 }
 
 .function-value-label-span {
@@ -146,8 +176,8 @@
 .visual-container {
   height: 200px;
   display: block;
-  border: 1px solid;
-  margin-left: 50px;
+  /* border: 1px solid; */
+  /* margin-left: 50px; */
   margin-top: 10px;
 }
 

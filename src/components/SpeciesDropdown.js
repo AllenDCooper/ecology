@@ -9,6 +9,7 @@ const SpeciesDropdown = (props) => {
       buttonContents={Object.keys(props.speciesObj)[0]}
       onChange={props.handleSpeciesChange}
       key={props.dataSelect + props.logisticType}
+      buttonClass='species-dropdown-btn'
     >
       {Object.keys(props.speciesObj).map(key => (
         <Dropdown.Option
