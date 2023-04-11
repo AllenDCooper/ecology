@@ -90,7 +90,7 @@ const LotkaVolterraCompetition = {
         }
       },
       n20: {
-        start: 10,
+        start: 15,
         min: 0,
         max: 200,
         step: 1,
@@ -106,7 +106,7 @@ const LotkaVolterraCompetition = {
       t: {
         start: 0,
         min: 0,
-        max: 20,
+        max: 500,
         step: 1,
         tooltipName: [<span>t</span>],
         tooltipText: [<span><em>t</em>: time</span>],
@@ -151,12 +151,13 @@ const LotkaVolterraCompetition = {
   },
   equationsObj: {
     // tangent equation formula that calculates y values from given parametersObj
-    Continuous: {
+    isocline1: {
       plot: true,
       alwaysShow: false,
-      isDiscrete: false,
-      addPoint: true,
-      label: 'N(t)',
+      logisticType: "Continuous",
+      addPoint: false,
+      displayOutput: false,
+      label: 'Species1',
       format: {
         backgroundColor: ['orange'],
         borderColor: 'orange',
@@ -164,50 +165,76 @@ const LotkaVolterraCompetition = {
         pointRadius: 0,
       },
       calc: (x, hook) => {
-        const { t, n0, k, rMax, rDis } = hook
-        const nValue = (n0 * Math.exp(rMax * x))
-        return nValue.toFixed(2)
+        const { a, k1 } = hook
+        let b = k1 / a
+        let m = (-1 / a)
+        let equationOutput = (m * x) + b
+        return equationOutput
       }
     },
-    tangent: {
+    isocline2: {
       plot: true,
-      alwaysShow: false,
-      isDiscrete: false,
+      alwaysShow: true,
+      logisticType: "Continuous",
       addPoint: false,
-      label: "dN/dt",
+      displayOutput: false,
+      label: "Species2",
       format: {
-        backgroundColor: [
-          'white'
-        ],
-        borderColor: "black",
-        borderWidth: 1,
+        backgroundColor: ['blue'],
+        borderColor: 'blue',
+        borderWidth: 3,
         pointRadius: 0,
-        borderDash: [10, 5],
-        hidden: true,
       },
       calc: (x, hook) => {
-        const { t, n0, k, rMax, rDis } = hook
-        const y0 = (n0 * Math.exp(rMax * t))
-        const m = (n0 * rMax * Math.exp(rMax * t))
-        const b = (y0 - (m * t))
-        const equationOutput = ((m * (x)) + b)
-        return parseFloat(equationOutput);
+        const { b, k2 } = hook
+        let B = k2 / b
+        let m = (-1 / b)
+        let equationOutput = (m * x) + B
+        return equationOutput
       }
     },
-    calcM: {
+    runRungeKutta4Method: {
       plot: false,
       alwaysShow: false,
-      isDiscrete: false,
+      logisticType: "Continuous",
       addPoint: false,
+      displayOutput: true,
+      tooltipName: [<span>N<sub>t</sub></span>],
+      tooltipText: [<span><em>N<sub>t</sub></em>: Ending population abundance</span>],
+      format: {
+        backgroundColor: ['blue'],
+        borderColor: 'blue',
+        borderWidth: 3,
+        pointRadius: 0,
+      },
       calc: (x, hook) => {
-        const { t, n0, k, rMax, rDis } = hook
-        const m = (n0 * rMax * Math.exp(rMax * t))
-        return parseFloat(m).toFixed(2)
-      }
+        const { a, b, r1, r2, k1, k2, n10, n20, t, tmax } = hook
+        const Nt = 1000
+        let ys = [[n10, n20]]
+        const derivative = (X, a, b, k1, k2, r1, r2) => {
+          let x = parseFloat(X[0]);
+          let y = parseFloat(X[1]);
+          let dotx = r1 * x * ((k1 - x - (a * y)) / k1)
+          let doty = r2 * y * ((k2 - y - (b * x)) / k2)
+          return [dotx, doty];
+        }
+        const h = tmax / Nt
+        for (let i = 0; i < Nt; i++) {
+          const rkFactor1 = [ys[i][0], ys[i][1]]
+          const rk1 = derivative(rkFactor1, a, b, k1, k2, r1, r2)
+          const rkFactor2 = [ys[i][0] + h / 2, ys[i][1] + (rk1[1] * (h / 2))]
+          const rk2 = derivative(rkFactor2, a, b, k1, k2, r1, r2)
+          const rkFactor3 = [ys[i][0] + h / 2, ys[i][1] + (rk2[1] * (h / 2))]
+          const rk3 = derivative(rkFactor3, a, b, k1, k2, r1, r2)
+          const rkFactor4 = [ys[i][0] + h, ys[i][1] + (rk3[1] * h)]
+          const rk4 = derivative(rkFactor4, a, b, k1, k2, r1, r2)
+          const xCalc = (ys[i][0] + ((rk1[0] + (2 * rk2[0]) + (2 * rk3[0]) + rk4[0]) / 6) * h);
+          const yCalc = (ys[i][1] + ((rk1[1] + (2 * rk2[1]) + (2 * rk3[1]) + rk4[1]) / 6) * h);
+          ys[i + 1] = [xCalc, yCalc]
+        }
+        return ys
+      },
     },
-  },
-  graphSettings: {
-    aspectRatio: 1.6,
   },
   modelSettings: {
     usingDiscrete: false,
@@ -259,7 +286,7 @@ const LotkaVolterraCompetition = {
               <td><em>K<sub>2</sub></em></td>
             </tr>
           </table>
-        </h5></div>],
+        </h5></div >],
     },
     directionsText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tellus id interdum velit laoreet id donec. Nisl vel pretium lectus quam id leo in vitae turpis. Mattis enim ut tellus elementum sagittis. Hac habitasse platea dictumst vestibulum rhoncus.'
   }

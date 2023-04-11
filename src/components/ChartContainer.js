@@ -2,10 +2,11 @@ import React from 'react';
 import LineChart from './LineChart';
 
 const ChartContainer = (props) => {
+  console.log(props)
   // function that takes an equation and parameter values to generates an array of data to be used by chartjs to plot a graph
   const generateDataSetFromFunction = (equation, inputObj, isPoint) => {
     const newDataSetArr = []
-    const interval = equation.isDiscrete ? 1 : 10
+    const interval = equation.logisticType === 'Discrete' ? 1 : 10
     for (let i = 0; i <= props.tMax * interval; i++) {
       let newDataPointObj = {}
       const nt = equation.calc(i / interval, inputObj)
@@ -39,9 +40,8 @@ const ChartContainer = (props) => {
   }
   // function that returns the complete sets of chart data, to be passed into LineChart component as props
   const generateChartDataObj = (inputObj) => {
-    const discreteMatch = (props.logisticType === 'Discrete')
     const newDataset = [], newLabel = []
-    const newEquationsObjArr = Object.entries(props.equationsObj).filter(([key, value]) => (discreteMatch === value.isDiscrete) || value.alwaysShow)
+    const newEquationsObjArr = Object.entries(props.equationsObj).filter(([key, value]) => (props.logisticType === value.logisticType) || value.alwaysShow)
     newEquationsObjArr.forEach(([key, value], index) => {
       if (index === 0) {
         newLabel.push(...generateDataSetFromFunction(value, inputObj, false).map(data => data.xValue))

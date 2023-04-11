@@ -7,6 +7,7 @@ import { CategoryScale, Chart } from "chart.js";
 Chart.register(CategoryScale);
 
 function LineChart(props) {
+  console.log(props.graphOptions)
   const title = ``
 
   const x = {
@@ -45,7 +46,7 @@ function LineChart(props) {
     }
   }
   const options = {
-    // aspectRatio: 1.6,
+    // aspectRatio: props.graphOptions.aspectRatio,
     plugins: {
       title: {
         display: false,

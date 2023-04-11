@@ -21,7 +21,7 @@ Chart.register(...registerables);
 
 function App() {
   // HOOKS
-  const [dataObj, setDataObj] = useState(Exponential)
+  const [dataObj, setDataObj] = useState(LotkaVolterraCompetition)
   const [dataSelect, setDataSelect] = useState('Exponential')
   const [logisticType, setLogisticType] = useState('Continuous')
   const [speciesSelected, setSpeciesSelected] = useState(
@@ -121,11 +121,14 @@ function App() {
     if (iterativeVal > dataObj.parametersObj.general.t.max) { iterativeVal = 0 }
     setInputVals(prevState => ({ ...prevState, t: iterativeVal.toFixed(2) }))
   }
-  const formatNumber = (num, maxLength) => {
-    if (num.toString().length > maxLength) {
-      return Number.parseFloat(num).toExponential(2)
+  const formatNumber = (num, maxLength, index) => {
+    const h = inputVals.tmax / 1000
+    const adjNum = Array.isArray(num) ? num[Math.floor(inputVals.t / h)][index].toFixed(2) : num
+    console.log(adjNum)
+    if (adjNum.toString().length > maxLength) {
+      return Number.parseFloat(adjNum).toExponential(2)
     } else {
-      return num
+      return adjNum
     }
   }
 
@@ -178,23 +181,24 @@ function App() {
                 :
                 null
             ))}
-            <OutputField
-              value={logisticType === 'Continuous' ?
-                formatNumber(dataObj.equationsObj.Continuous.calc(inputVals.t, inputVals), 8)
+
+            {Object.entries(dataObj.equationsObj).map(([key, value]) => (
+              value.displayOutput && (value.logisticType === logisticType) ?
+                <>
+                  {value.logisticType === logisticType ?
+                    <OutputField
+                      value={
+                        formatNumber(value.calc(inputVals.t, inputVals), 8, 0)}
+                      tooltipName={value.tooltipName}
+                      tooltipText={value.tooltipText}
+                    />
+                    :
+                    null
+                  }
+                </>
                 :
-                formatNumber(dataObj.equationsObj.Discrete.calc(inputVals.t, inputVals), 8)}
-              tooltipName={[<span>N<sub>t</sub></span>]}
-              tooltipText={[<span><em>N<sub>t</sub></em>: Ending population abundance</span>]}
-            />
-            {logisticType === 'Continuous' ?
-              <OutputField
-                value={
-                  formatNumber(dataObj.equationsObj.calcM.calc(inputVals.t, inputVals), 8)}
-                tooltipName={[<span><em>dN/dt</em></span>]}
-                tooltipText={[<span><em>dN/dt</em>: instantaneous per capita rate of population growth</span>]}
-              />
-              :
-              null
+                null
+            ))
             }
           </div>
           {dataObj.parametersObj.species2 ?
@@ -215,23 +219,29 @@ function App() {
                   :
                   null
               ))}
-              <OutputField
-                value={logisticType === 'Continuous' ?
-                  formatNumber(dataObj.equationsObj.Continuous.calc(inputVals.t, inputVals), 8)
+              {Object.entries(dataObj.equationsObj).map(([key, value]) => (
+                value.displayOutput ?
+                  <>
+                    {value.logisticType === logisticType ?
+                      <OutputField
+                        value={
+                          formatNumber(value.calc(inputVals.t, inputVals), 8, 1)}
+                        tooltipName={[<span>N<sub>t</sub></span>]}
+                        tooltipText={[<span><em>N<sub>t</sub></em>: Ending population abundance</span>]}
+                      />
+                      :
+                      <OutputField
+                        value={
+                          formatNumber(value.calc(inputVals.t, inputVals), 8, 1)
+                        }
+                        tooltipName={[<span><em>dN/dt</em></span>]}
+                        tooltipText={[<span><em>dN/dt</em>: instantaneous per capita rate of population growth</span>]}
+                      />
+                    }
+                  </>
                   :
-                  formatNumber(dataObj.equationsObj.Discrete.calc(inputVals.t, inputVals), 8)}
-                tooltipName={[<span>N<sub>t</sub></span>]}
-                tooltipText={[<span><em>N<sub>t</sub></em>: Ending population abundance</span>]}
-              />
-              {logisticType === 'Continuous' ?
-                <OutputField
-                  value={
-                    formatNumber(dataObj.equationsObj.calcM.calc(inputVals.t, inputVals), 8)}
-                  tooltipName={[<span><em>dN/dt</em></span>]}
-                  tooltipText={[<span><em>dN/dt</em>: instantaneous per capita rate of population growth</span>]}
-                />
-                :
-                null
+                  null
+              ))
               }
             </div>
             :

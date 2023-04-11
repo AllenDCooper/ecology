@@ -67,9 +67,12 @@ const Exponential = {
     Continuous: {
       plot: true,
       alwaysShow: false,
-      isDiscrete: false,
+      logisticType: "Continuous",
       addPoint: true,
+      displayOutput: true,
       label: 'N(t)',
+      tooltipName: [<span>N<sub>t</sub></span>],
+      tooltipText: [<span><em>N<sub>t</sub></em>: Ending population abundance</span>],
       format: {
         backgroundColor: ['orange'],
         borderColor: 'orange',
@@ -85,9 +88,12 @@ const Exponential = {
     tangent: {
       plot: true,
       alwaysShow: false,
-      isDiscrete: false,
+      logisticType: "Continuous",
       addPoint: false,
+      displayOutput: false,
       label: "dN/dt",
+      tooltipName: [<span><em>dN/dt</em></span>],
+      tooltipText: [<span><em>dN/dt</em>: instantaneous per capita rate of population growth</span>],
       format: {
         backgroundColor: [
           'white'
@@ -110,8 +116,11 @@ const Exponential = {
     calcM: {
       plot: false,
       alwaysShow: false,
-      isDiscrete: false,
+      logisticType: "Continuous",
       addPoint: false,
+      displayOutput: true,
+      tooltipName: [<span><em>dN/dt</em></span>],
+      tooltipText: [<span><em>dN/dt</em>: instantaneous per capita rate of population growth</span>],
       calc: (x, hook) => {
         const { t, n0, k, rMax, rDis } = hook
         const m = (n0 * rMax * Math.exp(rMax * t))
