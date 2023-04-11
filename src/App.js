@@ -158,25 +158,6 @@ function App() {
           :
           null
         }
-        <div className="input-grp">
-          <div className="general-pane">
-            {Object.entries(dataObj.parametersObj.general).map(([key, value]) => (
-              value.show[logisticType] ?
-                <InputField
-                  name={key}
-                  max={value.max}
-                  min={value.min}
-                  step={value.step}
-                  value={inputVals[key]}
-                  handleInputChange={handleInputChange}
-                  tooltipName={value.tooltipName}
-                  tooltipText={value.tooltipText}
-                />
-                :
-                null
-            ))}
-          </div>
-        </div>
         <div className={dataObj.parametersObj.species2 ? "input-grp-split" : "input-grp"}>
           <div className={dataObj.parametersObj.species2 ? 'species1-pane-split' : 'species1-pane'}>
             {dataObj.parametersObj.species2 ?
@@ -256,6 +237,25 @@ function App() {
             :
             null
           }
+        </div>
+        <div className="input-grp">
+          <div className="general-pane">
+            {Object.entries(dataObj.parametersObj.general).map(([key, value]) => (
+              value.show[logisticType] ?
+                <InputField
+                  name={key}
+                  max={value.max}
+                  min={value.min}
+                  step={value.step}
+                  value={inputVals[key]}
+                  handleInputChange={handleInputChange}
+                  tooltipName={value.tooltipName}
+                  tooltipText={value.tooltipText}
+                />
+                :
+                null
+            ))}
+          </div>
         </div>
       </div>
       <div className='data-pane2'>
