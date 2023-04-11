@@ -1,40 +1,44 @@
 const Exponential = {
-  key:0,
+  key: 0,
   parametersObj: {
-    n0: {
-      start: 10,
-      min: 0,
-      max: 200,
-      step: 1,
-      tooltipName: [<span>N<sub>0</sub></span>],
-      tooltipText: [<span><em>N<sub>0</sub></em>: starting population abundance</span>],
-      show: {
-        Continuous: true,
-        Discrete: true
-      }
+    species1: {
+      n0: {
+        start: 10,
+        min: 0,
+        max: 200,
+        step: 1,
+        tooltipName: [<span>N<sub>0</sub></span>],
+        tooltipText: [<span><em>N<sub>0</sub></em>: starting population abundance</span>],
+        show: {
+          Continuous: true,
+          Discrete: true
+        }
+      },
+      rMax: {
+        start: 1,
+        min: -1,
+        max: 2,
+        step: 0.1,
+        tooltipName: [<span>r<sub>max</sub></span>],
+        tooltipText: [<span><em>r</em>: instantaneous per capita rate of population growth</span>],
+        show: {
+          Continuous: true,
+          Discrete: false
+        }
+      },
     },
-    rMax: {
-      start: 1,
-      min: -1,
-      max: 2,
-      step: 0.1,
-      tooltipName: [<span>r<sub>max</sub></span>],
-      tooltipText: [<span><em>r</em>: instantaneous per capita rate of population growth</span>],
-      show: {
-        Continuous: true,
-        Discrete: false
-      }
-    },
-    t: {
-      start: 0,
-      min: 0,
-      max: 20,
-      step: 1,
-      tooltipName: [<span>t</span>],
-      tooltipText: [<span><em>t</em>: time</span>],
-      show: {
-        Continuous: true,
-        Discrete: true
+    general: {
+      t: {
+        start: 0,
+        min: 0,
+        max: 20,
+        step: 1,
+        tooltipName: [<span>t</span>],
+        tooltipText: [<span><em>t</em>: time</span>],
+        show: {
+          Continuous: true,
+          Discrete: true
+        }
       }
     }
   },

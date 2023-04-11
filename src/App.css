@@ -70,7 +70,7 @@
 .data-pane {
   width: 100%;
   /* float: left; */
-  padding: 10px 5px 10px 5px;
+  padding: 10px 5px 5px 5px;
   text-align: left;
   display: flex;
   flex-direction: column;
@@ -92,13 +92,74 @@
   flex-direction: row;
 }
 
-.input-grp>* {
+.input-grp {
+  width: 100%;
+}
+
+.input-grp-split {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-content: stretch;
+  flex-wrap: wrap;
+}
+
+.species1-pane-split {
+  width: calc(50% - 5px);
+}
+
+.species2-pane-split {
+  width: calc(50% - 5px);
+  margin-left: 10px;
+}
+
+.general-pane>* {
   min-width: 100px;
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   margin: 5px 5px 5px 0px;
+}
+
+.species1-pane>* {
+  min-width: 100px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 5px 5px 5px 0px;
+}
+
+.species1-pane-split>* {
+  min-width: 100px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 5px 5px 5px 0px;
+}
+
+.species2-pane-split>* {
+  min-width: 100px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 5px 5px 5px 0px;
+}
+
+.species-heading {
+  background-color: #36454F;;
+  height: 35px;
+  align-items: center;
+  padding-left: 10px;
+  font-size: 15px;
+  color: white;
+  border-radius: 2px;
+  margin-top: 0;
+  margin-bottom: 8px;
+  /* border: 1px solid teal; */
 }
 
 .input-field {
@@ -194,7 +255,7 @@
   .data-pane {
     width: 100%;
     /* float: left; */
-    padding: 10px 5px 10px 5px;
+    padding: 10px 5px 5px 5px;
     text-align: left;
     display: flex;
     flex-direction: column;

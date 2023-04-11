@@ -1,64 +1,68 @@
 const Logistic = {
     key: 1,
     parametersObj: {
-        n0: {
-            start: 10,
-            min: 0,
-            max: 200,
-            step: 1,
-            tooltipName: [<span>N<sub>0</sub></span>],
-            tooltipText: [<span><em>N<sub>0</sub></em>: starting population abundance</span>],
-            show: {
-                Continuous: true,
-                Discrete: true
-            }
+        species1: {
+            n0: {
+                start: 10,
+                min: 0,
+                max: 200,
+                step: 1,
+                tooltipName: [<span>N<sub>0</sub></span>],
+                tooltipText: [<span><em>N<sub>0</sub></em>: starting population abundance</span>],
+                show: {
+                    Continuous: true,
+                    Discrete: true
+                }
+            },
+            rMax: {
+                start: 1,
+                min: -1,
+                max: 2,
+                step: 0.1,
+                tooltipName: [<span>r<sub>max</sub></span>],
+                tooltipText: [<span><em>r</em>: instantaneous per capita rate of population growth</span>],
+                show: {
+                    Continuous: true,
+                    Discrete: false
+                }
+            },
+            rDis: {
+                start: .2,
+                min: -1,
+                max: 3,
+                step: .1,
+                tooltipName: [<span>r<sub>dis</sub></span>],
+                tooltipText: [<span><em>r<sub>dis</sub></em>: per capita rate of population growth</span>],
+                show: {
+                    Continuous: false,
+                    Discrete: true
+                }
+            },
+            k: {
+                start: 100,
+                min: 0,
+                max: 200,
+                step: 1,
+                tooltipName: [<span>K</span>],
+                tooltipText: [<span><em>K</em>: carrying capacity</span>],
+                show: {
+                    Continuous: true,
+                    Discrete: true
+                }
+            },
         },
-        rMax: {
-            start: 1,
-            min: -1,
-            max: 2,
-            step: 0.1,
-            tooltipName: [<span>r<sub>max</sub></span>],
-            tooltipText: [<span><em>r</em>: instantaneous per capita rate of population growth</span>],
-            show: {
-                Continuous: true,
-                Discrete: false
-            }
-        },
-        rDis: {
-            start: .2,
-            min: -1,
-            max: 3,
-            step: .1,
-            tooltipName: [<span>r<sub>dis</sub></span>],
-            tooltipText: [<span><em>r<sub>dis</sub></em>: per capita rate of population growth</span>],
-            show: {
-                Continuous: false,
-                Discrete: true
-            }
-        },
-        k: {
-            start: 100,
-            min: 0,
-            max: 200,
-            step: 1,
-            tooltipName: [<span>K</span>],
-            tooltipText: [<span><em>K</em>: carrying capacity</span>],
-            show: {
-                Continuous: true,
-                Discrete: true
-            }
-        },
-        t: {
-            start: 0,
-            min: 0,
-            max: 40,
-            step: 1,
-            tooltipName: [<span>t</span>],
-            tooltipText: [<span><em>t</em>: time</span>],
-            show: {
-                Continuous: true,
-                Discrete: true
+        general: {
+            t: {
+                start: 0,
+                min: 0,
+                max: 40,
+                step: 1,
+                tooltipName: [<span>t</span>],
+                tooltipText: [<span><em>t</em>: time</span>],
+                show: {
+                    Continuous: true,
+                    Discrete: true
+                }
             }
         }
     },

@@ -1,88 +1,131 @@
 const LotkaVolterraCompetition = {
-  key:0,
+  key: 0,
   parametersObj: {
-    n01: {
-      start: 10,
-      min: 0,
-      max: 200,
-      step: 1,
-      tooltipName: [<span>N<sub>0</sub></span>],
-      tooltipText: [<span><em>N<sub>0</sub></em>: starting population abundance</span>],
-      show: {
-        Continuous: true,
-        Discrete: true
-      }
+    species1:
+    {
+      a: {
+        start: 0.63,
+        min: 0,
+        max: 2,
+        step: 0.01,
+        tooltipName: [<span><em>&alpha;</em></span>],
+        tooltipText: [<span><em>&alpha;</em>: competition coefficient, which translates the relative effect of an individual of species 2 into units of individuals of species 1. </span>],
+        show: {
+          Continuous: true,
+          Discrete: false
+        }
+      },
+      r1: {
+        start: 0.55,
+        min: -1,
+        max: 2,
+        step: 0.1,
+        tooltipName: [<span>r<sub>1,max</sub></span>],
+        tooltipText: [<span><em>r<sub>1,max</sub></em>: instantaneous per capita rate of population growth of species 1</span>],
+        show: {
+          Continuous: true,
+          Discrete: false
+        }
+      },
+      k1: {
+        start: 250,
+        min: 0,
+        max: 300,
+        step: 1,
+        tooltipName: [<span>K<sub>1</sub></span>],
+        tooltipText: [<span><em>K<sub>1</sub></em>: carrying capacity of species 1</span>],
+        show: {
+          Continuous: true,
+          Discrete: false
+        }
+      },
+      n10: {
+        start: 10,
+        min: 0,
+        max: 200,
+        step: 1,
+        tooltipName: [<span>N<sub>1,0</sub></span>],
+        tooltipText: [<span><em>N<sub>1,0</sub></em>: starting population abundance of species 1</span>],
+        show: {
+          Continuous: true,
+          Discrete: true
+        }
+      },
     },
-    n02: {
-      start: 10,
-      min: 0,
-      max: 200,
-      step: 1,
-      tooltipName: [<span>N<sub>0</sub></span>],
-      tooltipText: [<span><em>N<sub>0</sub></em>: starting population abundance</span>],
-      show: {
-        Continuous: true,
-        Discrete: true
-      }
+    species2: {
+      b: {
+        start: 0.53,
+        min: 0,
+        max: 2,
+        step: 0.01,
+        tooltipName: [<span><em>&beta;</em></span>],
+        tooltipText: [<span><em>&beta;</em>: competition coefficient, which translates the relative effect of an individual of species 1 into units of individuals of species 2. </span>],
+        show: {
+          Continuous: true,
+          Discrete: false
+        }
+      },
+      r2: {
+        start: 0.55,
+        min: -1,
+        max: 2,
+        step: 0.1,
+        tooltipName: [<span>r<sub>2,max</sub></span>],
+        tooltipText: [<span><em>r<sub>2,max</sub></em>: instantaneous per capita rate of population growth of species 2</span>],
+        show: {
+          Continuous: true,
+          Discrete: false
+        }
+      },
+      k2: {
+        start: 200,
+        min: 0,
+        max: 300,
+        step: 1,
+        tooltipName: [<span>K<sub>2</sub></span>],
+        tooltipText: [<span><em>K<sub>2</sub></em>: carrying capacity of species 2</span>],
+        show: {
+          Continuous: true,
+          Discrete: false
+        }
+      },
+      n20: {
+        start: 10,
+        min: 0,
+        max: 200,
+        step: 1,
+        tooltipName: [<span>N<sub>2,0</sub></span>],
+        tooltipText: [<span><em>N<sub>2,0</sub></em>: starting population abundance of species 2</span>],
+        show: {
+          Continuous: true,
+          Discrete: true
+        }
+      },
     },
-    r1: {
-      start: 0.55,
-      min: -1,
-      max: 2,
-      step: 0.1,
-      tooltipName: [<span>r<sub>max</sub></span>],
-      tooltipText: [<span><em>r</em>: instantaneous per capita rate of population growth</span>],
-      show: {
-        Continuous: true,
-        Discrete: false
-      }
-    },
-    r2: {
-      start: 0.55,
-      min: -1,
-      max: 2,
-      step: 0.1,
-      tooltipName: [<span>r<sub>max</sub></span>],
-      tooltipText: [<span><em>r</em>: instantaneous per capita rate of population growth</span>],
-      show: {
-        Continuous: true,
-        Discrete: false
-      }
-    },
-    k1: {
-      start: 250,
-      min: 0,
-      max: 300,
-      step: 1,
-      tooltipName: [<span>r<sub>max</sub></span>],
-      tooltipText: [<span><em>r</em>: instantaneous per capita rate of population growth</span>],
-      show: {
-        Continuous: true,
-        Discrete: false
-      }
-    },
-    k2: {
-      start: 200,
-      min: 0,
-      max: 300,
-      step: 1,
-      tooltipName: [<span>r<sub>max</sub></span>],
-      tooltipText: [<span><em>r</em>: instantaneous per capita rate of population growth</span>],
-      show: {
-        Continuous: true,
-        Discrete: false
-      }
-    },
-    t: {
-      start: 0,
-      min: 0,
-      max: 20,
-      step: 1,
-      tooltipName: [<span>t</span>],
-      tooltipText: [<span><em>t</em>: time</span>],
-      show: {
-        Continuous: true,
-        Discrete: true
+    general: {
+      t: {
+        start: 0,
+        min: 0,
+        max: 20,
+        step: 1,
+        tooltipName: [<span>t</span>],
+        tooltipText: [<span><em>t</em>: time</span>],
+        show: {
+          Continuous: true,
+          Discrete: true
+        }
+      },
+      tmax: {
+        start: 105,
+        min: 0,
+        max: 105,
+        step: 1,
+        tooltipName: [<span>t<sub>max</sub></span>],
+        tooltipText: [<span><em>t<sub>max</sub></em>: maximum time value for model</span>],
+        show: {
+          Continuous: true,
+          Discrete: true
+        }
       }
     }
   },
@@ -171,24 +214,52 @@ const LotkaVolterraCompetition = {
   },
   header: {
     title: {
-      Continuous: 'Exponential Growth Model',
-      Discrete: 'Exponential Growth Model - Discrete'
+      Continuous: 'Lotka Volterra Competition Model',
+      // Discrete: 'Exponential Growth Model - Discrete'
     },
     equation: {
-      Continuous: [<span>N<sub>t</sub> = <em>N<sub>0</sub>e<sup>rt</sup></em></span>],
-      Discrete: [<>
-        <span style={{ display: "inline-block", margin: "auto" }}>
-          <em>N<sub>t+1 </sub> </em> = <em>N<sub>t</sub> + N<sub>t</sub> r<sub>dis</sub></em></span>
-        <table
-          style={{ display: "inline-block", textAlign: "center", marginLeft: "10px", borderLeft: "2px solid black", borderRadius: "10px", paddingLeft: "10px", borderRight: "2px solid black", paddingRight: "10px" }}>
-          <tr>
-            <td style={{ borderBottom: "1px solid black" }}><em>K - N<sub>t</sub></em></td>
-          </tr>
-          <tr>
-            <td><em>K</em></td>
-          </tr>
-        </table>
-      </>],
+      Continuous: [<div className="equation-heading-container" style={{ display: "flex" }}>
+        <h5 className="equation-heading" style={{ display: "inline-flex" }}>
+          <table style={{ display: "inline-block", textAlign: "center", marginRight: "20px" }}>
+            <tr>
+              <td style={{ borderBottom: "1px solid black" }}><em>dN<sub>1</sub></em></td>
+            </tr>
+            <tr>
+              <td><em>dt</em></td>
+            </tr>
+          </table>
+          <span style={{ display: "inline-block", margin: "auto" }}>
+            = <em>N<sub>1</sub> r<sub>1</sub></em></span>
+          <table
+            style={{ display: "inline-block", textAlign: "center", marginLeft: "10px", borderLeft: "2px solid black", borderRadius: "10px", paddingLeft: "10px", borderRight: "2px solid black", paddingRight: "10px" }}>
+            <tr>
+              <td style={{ borderBottom: "1px solid black" }}><em>K<sub>1</sub> - N<sub>1</sub> - &alpha;N<sub>2</sub></em></td>
+            </tr>
+            <tr>
+              <td><em>K<sub>1</sub></em></td>
+            </tr>
+          </table>
+        </h5><h5 className="equation-heading" style={{ display: "inline-flex" }}>
+          <table style={{ display: "inline-block", textAlign: "center", marginRight: "20px" }}>
+            <tr>
+              <td style={{ borderBottom: "1px solid black" }}><em>dN<sub>2</sub></em></td>
+            </tr>
+            <tr>
+              <td><em>dt</em></td>
+            </tr>
+          </table>
+          <span style={{ display: "inline-block", margin: "auto" }}>
+            = <em>N<sub>2</sub> r<sub>2</sub></em></span>
+          <table
+            style={{ display: "inline-block", textAlign: "center", marginLeft: "10px", borderLeft: "2px solid black", borderRadius: "10px", paddingLeft: "10px", borderRight: "2px solid black", paddingRight: "10px" }}>
+            <tr>
+              <td style={{ borderBottom: "1px solid black" }}><em>K<sub>2</sub> - N<sub>2</sub> - &beta;N<sub>1</sub></em></td>
+            </tr>
+            <tr>
+              <td><em>K<sub>2</sub></em></td>
+            </tr>
+          </table>
+        </h5></div>],
     },
     directionsText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tellus id interdum velit laoreet id donec. Nisl vel pretium lectus quam id leo in vitae turpis. Mattis enim ut tellus elementum sagittis. Hac habitasse platea dictumst vestibulum rhoncus.'
   }
