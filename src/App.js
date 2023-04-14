@@ -123,7 +123,8 @@ function App() {
   }
   const formatNumber = (num, maxLength, index) => {
     const h = inputVals.tmax / 1000
-    const adjNum = Array.isArray(num) ? num[Math.floor(inputVals.t / h)][index].toFixed(2) : num
+    const adjNum = Array.isArray(num) ? parseFloat(num.slice(-1)[0][index]).toFixed(2) : num
+    console.log(adjNum)
     console.log(adjNum)
     if (adjNum.toString().length > maxLength) {
       return Number.parseFloat(adjNum).toExponential(2)
@@ -182,15 +183,15 @@ function App() {
                 null
             ))}
 
-            {Object.entries(dataObj.equationsObj).map(([key, value]) => (
-              value.displayOutput && (value.logisticType === logisticType) ?
+            {dataObj.equationsObj.map((eq) => (
+              eq.displayOutput && (eq.logisticType === logisticType) ?
                 <>
-                  {value.logisticType === logisticType ?
+                  {eq.logisticType === logisticType ?
                     <OutputField
                       value={
-                        formatNumber(value.calc(inputVals.t, inputVals), 8, 0)}
-                      tooltipName={value.tooltipName}
-                      tooltipText={value.tooltipText}
+                        formatNumber(eq.calc(inputVals.t, inputVals), 8, 0)}
+                      tooltipName={eq.tooltipName}
+                      tooltipText={eq.tooltipText}
                     />
                     :
                     null
@@ -219,20 +220,20 @@ function App() {
                   :
                   null
               ))}
-              {Object.entries(dataObj.equationsObj).map(([key, value]) => (
-                value.displayOutput ?
+              {dataObj.equationsObj.map((eq) => (
+                eq.displayOutput ?
                   <>
-                    {value.logisticType === logisticType ?
+                    {eq.logisticType === logisticType ?
                       <OutputField
                         value={
-                          formatNumber(value.calc(inputVals.t, inputVals), 8, 1)}
+                          formatNumber(eq.calc(inputVals.t, inputVals), 8, 1)}
                         tooltipName={[<span>N<sub>t</sub></span>]}
                         tooltipText={[<span><em>N<sub>t</sub></em>: Ending population abundance</span>]}
                       />
                       :
                       <OutputField
                         value={
-                          formatNumber(value.calc(inputVals.t, inputVals), 8, 1)
+                          formatNumber(eq.calc(inputVals.t, inputVals), 8, 1)
                         }
                         tooltipName={[<span><em>dN/dt</em></span>]}
                         tooltipText={[<span><em>dN/dt</em>: instantaneous per capita rate of population growth</span>]}
@@ -281,7 +282,7 @@ function App() {
           </Button>
         </div>
       </div>
-      <div className="chart-pane">
+      <div className={dataObj.multipleCharts ? "chart-pane-split" : "chart-pane"}>
         <SpeciesDropdown
           speciesSelected={speciesSelected}
           handleSpeciesChange={handleSpeciesChange}
@@ -294,10 +295,9 @@ function App() {
           <div className='visual-container'>
             <div className={'animation-div'}>
               <VisualOutput
-                nValue={logisticType === "Continuous" ?
-                  dataObj.equationsObj.Continuous.calc(inputVals.t, inputVals)
-                  :
-                  dataObj.equationsObj.Discrete.calc(inputVals.t, inputVals)}
+                nValue={
+                  dataObj.equationsObj.filter(eq => eq.displayOutput).filter(eq => eq.logisticType === logisticType)[0].calc(inputVals.t, inputVals)
+                }
                 species={speciesSelected}
                 emoji={dataObj.speciesObj[logisticType][speciesSelected].emoji}
               />
@@ -306,14 +306,42 @@ function App() {
           :
           null
         }
-        <ChartContainer
-          inputVals={inputVals}
-          equationsObj={dataObj.equationsObj}
-          tMax={dataObj.parametersObj.general.t.max}
-          logisticType={logisticType}
-          speciesSettings={dataObj.speciesObj[logisticType][speciesSelected].settings}
-          graphOptions={dataObj.graphSettings}
-        />
+        {dataObj.multipleCharts ?
+          <div className='line-chart-container'
+          >
+            <ChartContainer
+              inputVals={inputVals}
+              equationsObj={dataObj.equationsObj.filter(eq => !eq.isRK)}
+              tMax={inputVals.tmax}
+              logisticType={logisticType}
+              speciesSettings={dataObj.speciesObj[logisticType][speciesSelected].settings}
+              graphOptions={dataObj.graphSettings}
+              multipleCharts={dataObj.multipleCharts}
+              key={1}
+            />
+            <ChartContainer
+              inputVals={inputVals}
+              equationsObj={dataObj.equationsObj.filter(eq => eq.isRK)}
+              tMax={inputVals.tmax}
+              logisticType={logisticType}
+              speciesSettings={dataObj.speciesObj[logisticType][speciesSelected].settings}
+              graphOptions={dataObj.graphSettings}
+              multipleCharts={dataObj.multipleCharts}
+              key={2}
+            />
+          </div>
+          :
+          <ChartContainer
+            inputVals={inputVals}
+            equationsObj={dataObj.equationsObj}
+            tMax={dataObj.parametersObj.general.t.max}
+            logisticType={logisticType}
+            speciesSettings={dataObj.speciesObj[logisticType][speciesSelected].settings}
+            graphOptions={dataObj.graphSettings}
+            multipleCharts={dataObj.multipleCharts}
+            key={0}
+          />
+        }
       </div>
     </div >
   );

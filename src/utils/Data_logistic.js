@@ -1,5 +1,5 @@
 const Logistic = {
-  key: 1,
+  multipleCharts: false,
   parametersObj: {
     species1: {
       n0: {
@@ -102,9 +102,10 @@ const Logistic = {
       }
     }
   },
-  equationsObj: {
+  equationsObj: [
     // tangent equation formula that calculates y values from given parametersObj
-    Continuous: {
+    {
+      name: 'Continuous',
       plot: true,
       alwaysShow: false,
       logisticType: "Continuous",
@@ -127,7 +128,8 @@ const Logistic = {
         return equationOutput.toFixed(2)
       }
     },
-    Discrete: {
+    {
+      name: 'Discrete',
       plot: true,
       alwaysShow: false,
       logisticType: "Discrete",
@@ -156,15 +158,16 @@ const Logistic = {
         }
       }
     },
-    tangent: {
+    {
+      name: 'tangent',
       plot: true,
       alwaysShow: false,
       logisticType: "Continuous",
       addPoint: false,
       displayOutput: false,
       label: "dN/dt",
-      tooltipName:[<span><em>dN/dt</em></span>],
-      tooltipText:[<span><em>dN/dt</em>: instantaneous per capita rate of population growth</span>],
+      tooltipName: [<span><em>dN/dt</em></span>],
+      tooltipText: [<span><em>dN/dt</em>: instantaneous per capita rate of population growth</span>],
       format: {
         backgroundColor: [
           'white'
@@ -177,7 +180,7 @@ const Logistic = {
       },
       calc: (x, hook) => {
         const { t, n0, k, rMax, rDis } = hook
-        const y0 = Logistic.equationsObj.Continuous.calc(t, hook)
+        const y0 = Logistic.equationsObj.filter(eq => eq.name==="Continuous")[0].calc(t, hook)
         // calculate derivative of N(t) to get m
         const mNumerator = k * (k - n0) * (n0 * rMax) * Math.exp(-rMax * t)
         const mDenominator = Math.pow((((k - n0) * Math.exp(-rMax * t)) + n0), 2)
@@ -187,14 +190,15 @@ const Logistic = {
         return equationOutput;
       }
     },
-    calcM: {
+    {
+      name: 'calcM',
       plot: false,
       alwaysShow: false,
       logisticType: "Continuous",
       addPoint: false,
       displayOutput: true,
-      tooltipName:[<span><em>dN/dt</em></span>],
-      tooltipText:[<span><em>dN/dt</em>: instantaneous per capita rate of population growth</span>],
+      tooltipName: [<span><em>dN/dt</em></span>],
+      tooltipText: [<span><em>dN/dt</em>: instantaneous per capita rate of population growth</span>],
       calc: (x, hook) => {
         const { t, n0, k, rMax, rDis } = hook
         const mNumerator = k * (k - n0) * (n0 * rMax) * Math.exp(-rMax * x)
@@ -203,7 +207,8 @@ const Logistic = {
         return parseFloat(m).toFixed(2);
       }
     },
-    kAsymptote: {
+    {
+      name: 'kAsymptote',
       plot: true,
       alwaysShow: true,
       logisticType: "Continuous",
@@ -224,9 +229,9 @@ const Logistic = {
         return k
       }
     },
-  },
+  ],
   graphSettings: {
-    aspectRatio: 1,
+    aspectRatio: 2,
   },
   modelSettings: {
     usingDiscrete: true

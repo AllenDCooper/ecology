@@ -1,5 +1,5 @@
 const LotkaVolterraCompetition = {
-  key: 0,
+  multipleCharts: true,
   parametersObj: {
     species1:
     {
@@ -106,7 +106,7 @@ const LotkaVolterraCompetition = {
       t: {
         start: 0,
         min: 0,
-        max: 500,
+        max: 105,
         step: 1,
         tooltipName: [<span>t</span>],
         tooltipText: [<span><em>t</em>: time</span>],
@@ -149,9 +149,10 @@ const LotkaVolterraCompetition = {
       }
     },
   },
-  equationsObj: {
+  equationsObj: [
     // tangent equation formula that calculates y values from given parametersObj
-    isocline1: {
+    {
+      name: 'isocline1',
       plot: true,
       alwaysShow: false,
       logisticType: "Continuous",
@@ -172,7 +173,8 @@ const LotkaVolterraCompetition = {
         return equationOutput
       }
     },
-    isocline2: {
+    {
+      name: 'isocline2',
       plot: true,
       alwaysShow: true,
       logisticType: "Continuous",
@@ -193,19 +195,33 @@ const LotkaVolterraCompetition = {
         return equationOutput
       }
     },
-    runRungeKutta4Method: {
-      plot: false,
-      alwaysShow: false,
+    {
+      name: 'runRungeKutta4Method',
+      plot: true,
+      alwaysShow: true,
       logisticType: "Continuous",
-      addPoint: false,
+      addPoint: true,
       displayOutput: true,
+      isRK: true,
+      label: {
+        graph1: 'Species1',
+        graph2: 'Species1'
+      },
       tooltipName: [<span>N<sub>t</sub></span>],
       tooltipText: [<span><em>N<sub>t</sub></em>: Ending population abundance</span>],
       format: {
-        backgroundColor: ['blue'],
-        borderColor: 'blue',
-        borderWidth: 3,
-        pointRadius: 0,
+        graph1: {
+          backgroundColor: ['blue'],
+          borderColor: 'blue',
+          borderWidth: 3,
+          pointRadius: 0,
+        },
+        graph2: {
+          backgroundColor: ['orange'],
+          borderColor: 'orange',
+          borderWidth: 3,
+          pointRadius: 0,
+        }
       },
       calc: (x, hook) => {
         const { a, b, r1, r2, k1, k2, n10, n20, t, tmax } = hook
@@ -218,8 +234,10 @@ const LotkaVolterraCompetition = {
           let doty = r2 * y * ((k2 - y - (b * x)) / k2)
           return [dotx, doty];
         }
-        const h = tmax / Nt
-        for (let i = 0; i < Nt; i++) {
+        let h = tmax / Nt;
+        let max = Math.floor(x / h)
+
+        for (let i = 0; i < max; i++) {
           const rkFactor1 = [ys[i][0], ys[i][1]]
           const rk1 = derivative(rkFactor1, a, b, k1, k2, r1, r2)
           const rkFactor2 = [ys[i][0] + h / 2, ys[i][1] + (rk1[1] * (h / 2))]
@@ -232,9 +250,13 @@ const LotkaVolterraCompetition = {
           const yCalc = (ys[i][1] + ((rk1[1] + (2 * rk2[1]) + (2 * rk3[1]) + rk4[1]) / 6) * h);
           ys[i + 1] = [xCalc, yCalc]
         }
+        console.log(ys)
         return ys
       },
     },
+  ],
+  graphSettings: {
+    aspectRatio: 1,
   },
   modelSettings: {
     usingDiscrete: false,

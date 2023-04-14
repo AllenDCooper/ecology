@@ -1,5 +1,5 @@
 const Exponential = {
-  key: 0,
+  multipleCharts: false,
   parametersObj: {
     species1: {
       n0: {
@@ -62,9 +62,10 @@ const Exponential = {
       }
     },
   },
-  equationsObj: {
+  equationsObj: [
     // tangent equation formula that calculates y values from given parametersObj
-    Continuous: {
+    {
+      name: 'Continuous',
       plot: true,
       alwaysShow: false,
       logisticType: "Continuous",
@@ -85,7 +86,8 @@ const Exponential = {
         return nValue.toFixed(2)
       }
     },
-    tangent: {
+    {
+      name: 'tangent',
       plot: true,
       alwaysShow: false,
       logisticType: "Continuous",
@@ -113,7 +115,8 @@ const Exponential = {
         return parseFloat(equationOutput);
       }
     },
-    calcM: {
+    {
+      name: 'calcM',
       plot: false,
       alwaysShow: false,
       logisticType: "Continuous",
@@ -127,7 +130,7 @@ const Exponential = {
         return parseFloat(m).toFixed(2)
       }
     },
-  },
+  ],
   graphSettings: {
     aspectRatio: 2,
   },

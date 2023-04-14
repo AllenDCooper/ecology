@@ -7,6 +7,7 @@ import { CategoryScale, Chart } from "chart.js";
 Chart.register(CategoryScale);
 
 function LineChart(props) {
+  console.log(props)
   console.log(props.graphOptions)
   const title = ``
 
@@ -56,7 +57,11 @@ function LineChart(props) {
         display: true,
         labels: {
           filter: (legendItem, data) => {
-            return legendItem.datasetIndex > 0
+            console.log(data)
+            console.log(data.datasets)
+            console.log(data.datasets[0])
+            console.log(typeof legendItem.datasetIndex)
+            return !data.datasets[legendItem.datasetIndex].isPoint
           },
           padding: 15,
           boxHeight: 5,
@@ -75,7 +80,7 @@ function LineChart(props) {
   }
 
   return (
-    <div className="chart-container">
+    <div className={props.multipleCharts ? "chart-container-split" : "chart-container"}>
       <Line
         data={props.chartData}
         options={returnOptions(options)}
