@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/ecology/static/css/main.fe277944.css",
-    "main.js": "/ecology/static/js/main.e6b243d7.js",
+    "main.css": "/ecology/static/css/main.8b18ff52.css",
+    "main.js": "/ecology/static/js/main.176bcf3d.js",
     "static/js/787.64571b93.chunk.js": "/ecology/static/js/787.64571b93.chunk.js",
     "index.html": "/ecology/index.html",
-    "main.fe277944.css.map": "/ecology/static/css/main.fe277944.css.map",
-    "main.e6b243d7.js.map": "/ecology/static/js/main.e6b243d7.js.map",
+    "main.8b18ff52.css.map": "/ecology/static/css/main.8b18ff52.css.map",
+    "main.176bcf3d.js.map": "/ecology/static/js/main.176bcf3d.js.map",
     "787.64571b93.chunk.js.map": "/ecology/static/js/787.64571b93.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.fe277944.css",
-    "static/js/main.e6b243d7.js"
+    "static/css/main.8b18ff52.css",
+    "static/js/main.176bcf3d.js"
   ]
 }
