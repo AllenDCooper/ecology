@@ -171,6 +171,7 @@ function App() {
                 buttonWidth={'100%'}
                 // buttonClass={'logistic-type-dropdown-btn'}
                 buttonId={'logistic-type-dropdown-btn'}
+                matchWidth={'button'}
               >
                 <Dropdown.Option name='Continuous' selected='true'>Continuous</Dropdown.Option>
                 <Dropdown.Option name='Discrete'>Discrete</Dropdown.Option>
@@ -355,6 +356,7 @@ function App() {
               graphOptions={dataObj.graphSettings}
               multipleCharts={dataObj.multipleCharts}
               key={1}
+              name={dataObj.speciesObj[logisticType][speciesSelected].name}
             />
             <ChartContainer
               inputVals={inputVals}
@@ -365,6 +367,7 @@ function App() {
               graphOptions={dataObj.graphSettings}
               multipleCharts={dataObj.multipleCharts}
               key={2}
+              name={dataObj.speciesObj[logisticType][speciesSelected].name}
             />
           </div>
           :
@@ -378,6 +381,7 @@ function App() {
             multipleCharts={dataObj.multipleCharts}
             key={0}
             showTangent={showTangent}
+            name={dataObj.speciesObj[logisticType][speciesSelected].name}
           />
         }
       </div>

@@ -13,6 +13,7 @@ const SpeciesDropdown = (props) => {
       key={props.dataSelect + props.logisticType}
       buttonWidth={'100%'}
       buttonId='species-dropdown-btn'
+      matchWidth='button'
     >
       {Object.keys(props.speciesObj).map(key => (
         <Dropdown.Option

@@ -194,8 +194,8 @@ const LotkaVolterraCompetition = {
       displayOutput: false,
       label: 'Species1',
       format: {
-        backgroundColor: ['orange'],
-        borderColor: 'orange',
+        backgroundColor: ['blue'],
+        borderColor: 'blue',
         borderWidth: 3,
         pointRadius: 0,
       },
@@ -216,8 +216,8 @@ const LotkaVolterraCompetition = {
       displayOutput: false,
       label: "Species2",
       format: {
-        backgroundColor: ['blue'],
-        borderColor: 'blue',
+        backgroundColor: ['orange'],
+        borderColor: 'orange',
         borderWidth: 3,
         pointRadius: 0,
       },

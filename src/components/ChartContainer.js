@@ -70,12 +70,12 @@ const ChartContainer = (props) => {
         }
         if (value.plot) {
           const newSet1 = {
-            label: value.label.graph1,
+            label: props.name.species1,
             data: dataArr.map(data => data.value[0]),
             ...returnFormat(value.format.graph1)
           }
           const newSet2 = {
-            label: value.label.graph2,
+            label: props.name.species2,
             data: dataArr.map(data => data.value[1]),
             ...returnFormat(value.format.graph2)
           }
@@ -107,7 +107,7 @@ const ChartContainer = (props) => {
         if (!value.isTangent || props.showTangent) {
           if (value.plot) {
             const newSet = {
-              label: value.label,
+              label: value.name==='isocline1' ? props.name.species1 : value.name==='isocline2' ? props.name.species2 : value.label,
               data: generateDataSetFromFunction(value, inputObj, false).map(data => data.value),
               ...returnFormat(value.format)
             }
