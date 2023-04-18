@@ -1,6 +1,7 @@
 const Logistic = {
   key: 1,
   multipleCharts: false,
+  chartTitle: 'Population Density',
   parametersObj: {
     species1: {
       n0: {

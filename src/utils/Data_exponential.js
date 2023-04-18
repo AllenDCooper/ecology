@@ -1,5 +1,6 @@
 const Exponential = {
   multipleCharts: false,
+  chartTitle: 'Population Density',
   parametersObj: {
     species1: {
       n0: {

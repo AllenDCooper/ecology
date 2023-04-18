@@ -1,6 +1,7 @@
 const LotkaVolterraCompetition = {
   key: 2,
   multipleCharts: true,
+  chartTitle: ['Isoclines', 'Population Density'],
   parametersObj: {
     species1:
     {

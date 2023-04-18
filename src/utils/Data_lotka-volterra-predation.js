@@ -1,6 +1,7 @@
 const LotkaVolterraPredation = {
   key: 3,
   multipleCharts: true,
+  chartTitle: ['Phase Plane', 'Population Density'],
   parametersObj: {
     species1:
     {

@@ -357,6 +357,7 @@ function App() {
               multipleCharts={dataObj.multipleCharts}
               key={1}
               name={dataObj.speciesObj[logisticType][speciesSelected].name}
+              chartTitle={dataObj.chartTitle[0]}
             />
             <ChartContainer
               inputVals={inputVals}
@@ -368,6 +369,7 @@ function App() {
               multipleCharts={dataObj.multipleCharts}
               key={2}
               name={dataObj.speciesObj[logisticType][speciesSelected].name}
+              chartTitle={dataObj.chartTitle[1]}
             />
           </div>
           :
@@ -382,6 +384,7 @@ function App() {
             key={0}
             showTangent={showTangent}
             name={dataObj.speciesObj[logisticType][speciesSelected].name}
+            chartTitle={dataObj.chartTitle}
           />
         }
       </div>

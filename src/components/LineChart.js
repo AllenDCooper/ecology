@@ -81,6 +81,7 @@ function LineChart(props) {
 
   return (
     <div className={props.multipleCharts ? "chart-container-split" : "chart-container"}>
+      <h5 className='chart-title'>{props.chartTitle}</h5>
       <Line
         data={props.chartData}
         options={returnOptions(options)}

@@ -65,10 +65,12 @@
   margin-left: 30px;
   /* margin-bottom: 50px; */
   height: 100%;
+  margin-top: 20px;
 }
 
 .chart-pane-split {
   width: 100%;
+  margin-top: 20px;
 }
 
 .line-chart-container {
@@ -214,7 +216,7 @@
   /* margin-top: 20px */
 }
 
-.logistic-type-dropdown-btn{
+.logistic-type-dropdown-btn {
   width: 100%;
   background-color: teal;
   color: white;
@@ -303,6 +305,12 @@
 
 .tangent-switch-container {
   text-align: right;
+}
+
+.chart-title {
+  text-align: center;
+  margin-bottom: 0px;
+  color: #313131;
 }
 
 @media only screen and (max-width: 840px) {

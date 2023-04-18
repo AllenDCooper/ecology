@@ -136,6 +136,7 @@ const ChartContainer = (props) => {
       speciesSettings={props.speciesSettings}
       graphOptions={props.graphOptions}
       multipleCharts={props.multipleCharts}
+      chartTitle={props.chartTitle}
     />
   )
 }
