@@ -230,7 +230,7 @@
   /* color: white;
   background-color: #36454F; */
   margin-bottom: 5px;
-  margin-top: 20px;
+  /* margin-top: 20px; */
   /* background-color: teal;
   color: white; */
   border: 1px teal solid;
@@ -287,12 +287,15 @@
 
 .equation-heading-container {
   display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
 }
 
 .equation-heading {
   font-style: italic;
   display: inline-flex;
-  margin-right: 60px;
+  /* margin-right: 60px; */
 }
 
 .visual-container {
@@ -311,6 +314,28 @@
   text-align: center;
   margin-bottom: 0px;
   color: #313131;
+}
+
+.equation-img-sm {
+  height: 24px;
+  margin-right: 10px;
+  margin-top: 20px
+}
+
+.equation-img-md {
+  height: 36px;
+  margin-right: 60px;
+  margin-top: 20px
+}
+
+.equation-img-lg {
+  height: 48px;
+  margin-right: 60px;
+  margin-top: 20px
+}
+
+.equation-img-spacer {
+  width: 60px;
 }
 
 @media only screen and (max-width: 840px) {

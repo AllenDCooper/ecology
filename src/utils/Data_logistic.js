@@ -246,40 +246,42 @@ const Logistic = {
       Discrete: 'Logistic Growth Model - Discrete'
     },
     equation: {
-      Continuous: [<>
-        <table style={{ display: "inline-block", textAlign: "center", marginRight: "20px" }}>
-          <tr>
-            <td style={{ borderBottom: "1px solid black" }}><em>dN</em></td>
-          </tr>
-          <tr>
-            <td><em>dt</em></td>
-          </tr>
-        </table>
-        <span style={{ display: "inline-block", margin: "auto" }}>
-          =  <em>Nr<sub>max</sub></em></span>
-        <table
-          style={{ display: "inline-block", textAlign: "center", marginLeft: "10px", borderLeft: "2px solid black", borderRadius: "10px", paddingLeft: "10px", borderRight: "2px solid black", paddingRight: "10px" }}>
-          <tr>
-            <td style={{ borderBottom: "1px solid black" }}><em>K - N</em></td>
-          </tr>
-          <tr>
-            <td><em>K</em></td>
-          </tr>
-        </table>
-      </>],
-      Discrete: [<>
-        <span style={{ display: "inline-block", margin: "auto" }}>
-          <em>N<sub>t+1 </sub> </em> = <em>N<sub>t</sub> + N<sub>t</sub> r<sub>dis</sub></em></span>
-        <table
-          style={{ display: "inline-block", textAlign: "center", marginLeft: "10px", borderLeft: "2px solid black", borderRadius: "10px", paddingLeft: "10px", borderRight: "2px solid black", paddingRight: "10px" }}>
-          <tr>
-            <td style={{ borderBottom: "1px solid black" }}><em>K - N<sub>t</sub></em></td>
-          </tr>
-          <tr>
-            <td><em>K</em></td>
-          </tr>
-        </table>
-      </>],
+      Continuous: [<img className='equation-img-lg' src='./assets/logistic.png' alt='logistic continuous equation'/>],
+      Discrete: [<img className='equation-img-lg' src='./assets/logistic-discrete.png' alt='logistic discrete equation'/>],
+      // Continuous: [<>
+      //   <table style={{ display: "inline-block", textAlign: "center", marginRight: "20px" }}>
+      //     <tr>
+      //       <td style={{ borderBottom: "1px solid black" }}><em>dN</em></td>
+      //     </tr>
+      //     <tr>
+      //       <td><em>dt</em></td>
+      //     </tr>
+      //   </table>
+      //   <span style={{ display: "inline-block", margin: "auto" }}>
+      //     =  <em>Nr<sub>max</sub></em></span>
+      //   <table
+      //     style={{ display: "inline-block", textAlign: "center", marginLeft: "10px", borderLeft: "2px solid black", borderRadius: "10px", paddingLeft: "10px", borderRight: "2px solid black", paddingRight: "10px" }}>
+      //     <tr>
+      //       <td style={{ borderBottom: "1px solid black" }}><em>K - N</em></td>
+      //     </tr>
+      //     <tr>
+      //       <td><em>K</em></td>
+      //     </tr>
+      //   </table>
+      // </>],
+      // Discrete: [<>
+      //   <span style={{ display: "inline-block", margin: "auto" }}>
+      //     <em>N<sub>t+1 </sub> </em> = <em>N<sub>t</sub> + N<sub>t</sub> r<sub>dis</sub></em></span>
+      //   <table
+      //     style={{ display: "inline-block", textAlign: "center", marginLeft: "10px", borderLeft: "2px solid black", borderRadius: "10px", paddingLeft: "10px", borderRight: "2px solid black", paddingRight: "10px" }}>
+      //     <tr>
+      //       <td style={{ borderBottom: "1px solid black" }}><em>K - N<sub>t</sub></em></td>
+      //     </tr>
+      //     <tr>
+      //       <td><em>K</em></td>
+      //     </tr>
+      //   </table>
+      // </>],
     },
     directionsText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tellus id interdum velit laoreet id donec. Nisl vel pretium lectus quam id leo in vitae turpis. Mattis enim ut tellus elementum sagittis. Hac habitasse platea dictumst vestibulum rhoncus.'
   }

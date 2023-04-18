@@ -244,28 +244,29 @@ const LotkaVolterraPredation = {
       // Discrete: 'Exponential Growth Model - Discrete'
     },
     equation: {
-      Continuous: [<div className="equation-heading-container" style={{ display: "flex" }}>
-        <h5 className="equation-heading" style={{ display: "inline-flex" }}>
-          <table style={{ display: "inline-block", textAlign: "center", marginRight: "10px" }}>
-            <tr>
-              <td style={{ borderBottom: "1px solid black" }}><em>dN<sub>p</sub></em></td>
-            </tr>
-            <tr>
-              <td><em>dt</em></td>
-            </tr>
-          </table>
-          <span style={{ display: "inline-block", margin: "auto" }}>=  <em>RN<sub>p</sub> &minus; fN<sub>p</sub>N<sub>e</sub></em></span>
-        </h5><h5 className="equation-heading" style={{ display: "inline-flex" }}>
-          <table style={{ display: "inline-block", textAlign: "center", marginRight: "10px" }}>
-            <tr>
-              <td style={{ borderBottom: "1px solid black" }}><em>dN<sub>e</sub></em></td>
-            </tr>
-            <tr>
-              <td><em>dt</em></td>
-            </tr>
-          </table>
-          <span style={{ display: "inline-block", margin: "auto" }}>=  <em>cfN<sub>p</sub>N<sub>e</sub> &minus; dN<sub>e</sub></em></span>
-        </h5></div >],
+      Continuous: [<span><img className='equation-img-md' src='./assets/lv-predation1.png' alt='Lotka-Volterra predation equation 1' /><span className='equation-img-spacer'></span><img className='equation-img-md' src='./assets/lv-predation2.png' alt='Lotka-Volterra predation equation2' /></span>],
+      // Continuous: [<div className="equation-heading-container" style={{ display: "flex" }}>
+      //   <h5 className="equation-heading" style={{ display: "inline-flex" }}>
+      //     <table style={{ display: "inline-block", textAlign: "center", marginRight: "10px" }}>
+      //       <tr>
+      //         <td style={{ borderBottom: "1px solid black" }}><em>dN<sub>p</sub></em></td>
+      //       </tr>
+      //       <tr>
+      //         <td><em>dt</em></td>
+      //       </tr>
+      //     </table>
+      //     <span style={{ display: "inline-block", margin: "auto" }}>=  <em>RN<sub>p</sub> &minus; fN<sub>p</sub>N<sub>e</sub></em></span>
+      //   </h5><h5 className="equation-heading" style={{ display: "inline-flex" }}>
+      //     <table style={{ display: "inline-block", textAlign: "center", marginRight: "10px" }}>
+      //       <tr>
+      //         <td style={{ borderBottom: "1px solid black" }}><em>dN<sub>e</sub></em></td>
+      //       </tr>
+      //       <tr>
+      //         <td><em>dt</em></td>
+      //       </tr>
+      //     </table>
+      //     <span style={{ display: "inline-block", margin: "auto" }}>=  <em>cfN<sub>p</sub>N<sub>e</sub> &minus; dN<sub>e</sub></em></span>
+      //   </h5></div >],
     },
     directionsText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tellus id interdum velit laoreet id donec. Nisl vel pretium lectus quam id leo in vitae turpis. Mattis enim ut tellus elementum sagittis. Hac habitasse platea dictumst vestibulum rhoncus.'
   }

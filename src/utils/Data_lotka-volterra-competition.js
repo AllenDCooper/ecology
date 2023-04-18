@@ -302,48 +302,50 @@ const LotkaVolterraCompetition = {
       // Discrete: 'Exponential Growth Model - Discrete'
     },
     equation: {
-      Continuous: [<div className="equation-heading-container" style={{ display: "flex" }}>
-        <h5 className="equation-heading" style={{ display: "inline-flex" }}>
-          <table style={{ display: "inline-block", textAlign: "center", marginRight: "20px" }}>
-            <tr>
-              <td style={{ borderBottom: "1px solid black" }}><em>dN<sub>1</sub></em></td>
-            </tr>
-            <tr>
-              <td><em>dt</em></td>
-            </tr>
-          </table>
-          <span style={{ display: "inline-block", margin: "auto" }}>
-            = <em>N<sub>1</sub> r<sub>1</sub></em></span>
-          <table
-            style={{ display: "inline-block", textAlign: "center", marginLeft: "10px", borderLeft: "2px solid black", borderRadius: "10px", paddingLeft: "10px", borderRight: "2px solid black", paddingRight: "10px" }}>
-            <tr>
-              <td style={{ borderBottom: "1px solid black" }}><em>K<sub>1</sub> - N<sub>1</sub> - &alpha;N<sub>2</sub></em></td>
-            </tr>
-            <tr>
-              <td><em>K<sub>1</sub></em></td>
-            </tr>
-          </table>
-        </h5><h5 className="equation-heading" style={{ display: "inline-flex" }}>
-          <table style={{ display: "inline-block", textAlign: "center", marginRight: "20px" }}>
-            <tr>
-              <td style={{ borderBottom: "1px solid black" }}><em>dN<sub>2</sub></em></td>
-            </tr>
-            <tr>
-              <td><em>dt</em></td>
-            </tr>
-          </table>
-          <span style={{ display: "inline-block", margin: "auto" }}>
-            = <em>N<sub>2</sub> r<sub>2</sub></em></span>
-          <table
-            style={{ display: "inline-block", textAlign: "center", marginLeft: "10px", borderLeft: "2px solid black", borderRadius: "10px", paddingLeft: "10px", borderRight: "2px solid black", paddingRight: "10px" }}>
-            <tr>
-              <td style={{ borderBottom: "1px solid black" }}><em>K<sub>2</sub> - N<sub>2</sub> - &beta;N<sub>1</sub></em></td>
-            </tr>
-            <tr>
-              <td><em>K<sub>2</sub></em></td>
-            </tr>
-          </table>
-        </h5></div >],
+      Continuous: [<span><img className='equation-img-lg' src='./assets/lv-competition1.png' alt='Lotka-Volterra Competition equation 1' /><span className='equation-img-spacer'></span><img className='equation-img-lg' src='./assets/lv-competition2.png' alt='Lotka-Volterra Competition equation2' /></span>],
+
+      // Continuous: [<div className="equation-heading-container" style={{ display: "flex" }}>
+      //   <h5 className="equation-heading" style={{ display: "inline-flex" }}>
+      //     <table style={{ display: "inline-block", textAlign: "center", marginRight: "20px" }}>
+      //       <tr>
+      //         <td style={{ borderBottom: "1px solid black" }}><em>dN<sub>1</sub></em></td>
+      //       </tr>
+      //       <tr>
+      //         <td><em>dt</em></td>
+      //       </tr>
+      //     </table>
+      //     <span style={{ display: "inline-block", margin: "auto" }}>
+      //       = <em>N<sub>1</sub> r<sub>1</sub></em></span>
+      //     <table
+      //       style={{ display: "inline-block", textAlign: "center", marginLeft: "10px", borderLeft: "2px solid black", borderRadius: "10px", paddingLeft: "10px", borderRight: "2px solid black", paddingRight: "10px" }}>
+      //       <tr>
+      //         <td style={{ borderBottom: "1px solid black" }}><em>K<sub>1</sub> - N<sub>1</sub> - &alpha;N<sub>2</sub></em></td>
+      //       </tr>
+      //       <tr>
+      //         <td><em>K<sub>1</sub></em></td>
+      //       </tr>
+      //     </table>
+      //   </h5><h5 className="equation-heading" style={{ display: "inline-flex" }}>
+      //     <table style={{ display: "inline-block", textAlign: "center", marginRight: "20px" }}>
+      //       <tr>
+      //         <td style={{ borderBottom: "1px solid black" }}><em>dN<sub>2</sub></em></td>
+      //       </tr>
+      //       <tr>
+      //         <td><em>dt</em></td>
+      //       </tr>
+      //     </table>
+      //     <span style={{ display: "inline-block", margin: "auto" }}>
+      //       = <em>N<sub>2</sub> r<sub>2</sub></em></span>
+      //     <table
+      //       style={{ display: "inline-block", textAlign: "center", marginLeft: "10px", borderLeft: "2px solid black", borderRadius: "10px", paddingLeft: "10px", borderRight: "2px solid black", paddingRight: "10px" }}>
+      //       <tr>
+      //         <td style={{ borderBottom: "1px solid black" }}><em>K<sub>2</sub> - N<sub>2</sub> - &beta;N<sub>1</sub></em></td>
+      //       </tr>
+      //       <tr>
+      //         <td><em>K<sub>2</sub></em></td>
+      //       </tr>
+      //     </table>
+      //   </h5></div >],
     },
     directionsText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tellus id interdum velit laoreet id donec. Nisl vel pretium lectus quam id leo in vitae turpis. Mattis enim ut tellus elementum sagittis. Hac habitasse platea dictumst vestibulum rhoncus.'
   }

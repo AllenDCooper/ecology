@@ -146,20 +146,8 @@ const Exponential = {
       Discrete: 'Exponential Growth Model - Discrete'
     },
     equation: {
-      Continuous: [<span>N<sub>t</sub> = <em>N<sub>0</sub>e<sup>rt</sup></em></span>],
-      Discrete: [<>
-        <span style={{ display: "inline-block", margin: "auto" }}>
-          <em>N<sub>t+1 </sub> </em> = <em>N<sub>t</sub> + N<sub>t</sub> r<sub>dis</sub></em></span>
-        <table
-          style={{ display: "inline-block", textAlign: "center", marginLeft: "10px", borderLeft: "2px solid black", borderRadius: "10px", paddingLeft: "10px", borderRight: "2px solid black", paddingRight: "10px" }}>
-          <tr>
-            <td style={{ borderBottom: "1px solid black" }}><em>K - N<sub>t</sub></em></td>
-          </tr>
-          <tr>
-            <td><em>K</em></td>
-          </tr>
-        </table>
-      </>],
+      // Continuous: [<span>N<sub>t</sub> = <em>N<sub>0</sub>e<sup>rt</sup></em></span>],
+      Continuous: [<img className='equation-img-sm' src='./assets/exponential.png' alt='exponential equation'/>],
     },
     directionsText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tellus id interdum velit laoreet id donec. Nisl vel pretium lectus quam id leo in vitae turpis. Mattis enim ut tellus elementum sagittis. Hac habitasse platea dictumst vestibulum rhoncus.'
   }
