@@ -24,7 +24,7 @@ function LineChart(props) {
       drawOnChartArea: false,
     },
     ticks: {
-      // maxTicksLimit: 10,
+      maxTicksLimit: 20,
       maxRotation: 0,
       minRotation: 0
     }
