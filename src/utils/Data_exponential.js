@@ -93,6 +93,7 @@ const Exponential = {
       logisticType: "Continuous",
       addPoint: false,
       displayOutput: false,
+      isTangent: true,
       label: "dN/dt",
       tooltipName: [<span><em>dN/dt</em></span>],
       tooltipText: [<span><em>dN/dt</em>: instantaneous per capita rate of population growth</span>],
@@ -104,7 +105,7 @@ const Exponential = {
         borderWidth: 1,
         pointRadius: 0,
         borderDash: [10, 5],
-        hidden: true,
+        hidden: false,
       },
       calc: (x, hook) => {
         const { t, n0, k, rMax, rDis } = hook
@@ -122,6 +123,7 @@ const Exponential = {
       logisticType: "Continuous",
       addPoint: false,
       displayOutput: true,
+      isTangent: true,
       tooltipName: [<span><em>dN/dt</em></span>],
       tooltipText: [<span><em>dN/dt</em>: instantaneous per capita rate of population growth</span>],
       calc: (x, hook) => {

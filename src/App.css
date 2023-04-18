@@ -301,6 +301,10 @@
   margin-top: 10px;
 }
 
+.tangent-switch-container {
+  text-align: right;
+}
+
 @media only screen and (max-width: 840px) {
   .chart-pane {
     float: right;

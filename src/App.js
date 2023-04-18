@@ -8,7 +8,7 @@ import LotkaVolterraCompetition from
   "./utils/Data_lotka-volterra-competition";
 import LotkaVolterraPredation from "./utils/Data_lotka-volterra-predation";
 // NORTON DESIGN SYSTEM
-import { Button, Dropdown } from '@wwnds/react';
+import { Button, Dropdown, Switch } from '@wwnds/react';
 // COMPONENTS
 import VisualOutput from "./components/VisualOutput";
 import ChartContainer from "./components/ChartContainer";
@@ -23,8 +23,8 @@ Chart.register(...registerables);
 
 function App() {
   // HOOKS
-  const [dataObj, setDataObj] = useState(LotkaVolterraCompetition)
-  const [dataSelect, setDataSelect] = useState('LotkaVolterraCompetition')
+  const [dataObj, setDataObj] = useState(Exponential)
+  const [dataSelect, setDataSelect] = useState('Exponential')
   const [logisticType, setLogisticType] = useState('Continuous')
   const [speciesSelected, setSpeciesSelected] = useState(
     dataObj.speciesObj[logisticType] ?
@@ -52,6 +52,7 @@ function App() {
   const [animationOn, setAnimationOn] = useState(false)
   const [intervalID, setIntervalID] = useState(null)
   const [showVisual, setShowVisual] = useState(false)
+  const [showTangent, setShowTangent] = useState(false)
 
   useEffect(() => {
     setLogisticType('Continuous')
@@ -109,6 +110,9 @@ function App() {
   const handleLogisticType = (e) => {
     setLogisticType(e.value)
     setSpeciesSelected(Object.keys(dataObj.speciesObj[e.value])[0])
+  }
+  const handleTangentSwitch = (e) => {
+    setShowTangent(prevState => (!prevState))
   }
   // UTILITIES
   // function to start interval, assign it an id, and set it in state
@@ -228,7 +232,8 @@ function App() {
             ))}
 
             {dataObj.equationsObj.map((eq) => (
-              eq.displayOutput && (eq.logisticType === logisticType) ?
+              eq.displayOutput && (eq.logisticType === logisticType) && (!eq.isTangent || showTangent)
+                ?
                 <>
                   {eq.logisticType === logisticType ?
                     <OutputField
@@ -296,6 +301,19 @@ function App() {
           }
         </div>
       </div>
+      <div className='tangent-switch-container'>
+        {dataSelect === 'Exponential' || (dataSelect === 'Logistic' && logisticType === "Continuous")
+          ?
+          <Switch
+            label={[<span>Show <em>dN/dt</em></span>]}
+            checked={false}
+            onToggle={handleTangentSwitch}
+            key={dataObj.key}
+          />
+          :
+          null
+        }
+      </div>
       <div className='data-pane2'>
         <div className='btn-container2'>
           <Button className='control-btn' variant="solid" color={'base'} onClick={handleAnimationToggle}>
@@ -359,6 +377,7 @@ function App() {
             graphOptions={dataObj.graphSettings}
             multipleCharts={dataObj.multipleCharts}
             key={0}
+            showTangent={showTangent}
           />
         }
       </div>

@@ -104,22 +104,24 @@ const ChartContainer = (props) => {
           newLabel.push(...generateDataSetFromFunction(value, inputObj, false).map(data => data.xValue.toFixed(0)))
         }
         let newPointSet
-        if (value.plot) {
-          const newSet = {
-            label: value.label,
-            data: generateDataSetFromFunction(value, inputObj, false).map(data => data.value),
-            ...returnFormat(value.format)
-          }
-          if (value.addPoint) {
-            newPointSet = {
-              label: '',
-              data: generateDataSetFromFunction(value, inputObj, true).map(data => data.value),
-              backgroundColor: ['black'], borderColor: 'black', borderWidth: 3, pointRadius: 3, order: 0, isPoint: true,
-
+        if (!value.isTangent || props.showTangent) {
+          if (value.plot) {
+            const newSet = {
+              label: value.label,
+              data: generateDataSetFromFunction(value, inputObj, false).map(data => data.value),
+              ...returnFormat(value.format)
             }
-            newDataset.push(newPointSet)
+            if (value.addPoint) {
+              newPointSet = {
+                label: '',
+                data: generateDataSetFromFunction(value, inputObj, true).map(data => data.value),
+                backgroundColor: ['black'], borderColor: 'black', borderWidth: 3, pointRadius: 3, order: 0, isPoint: true,
+
+              }
+              newDataset.push(newPointSet)
+            }
+            newDataset.push(newSet)
           }
-          newDataset.push(newSet)
         }
       }
     })

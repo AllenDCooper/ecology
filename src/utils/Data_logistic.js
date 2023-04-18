@@ -166,6 +166,7 @@ const Logistic = {
       logisticType: "Continuous",
       addPoint: false,
       displayOutput: false,
+      isTangent: true,
       label: "dN/dt",
       tooltipName: [<span><em>dN/dt</em></span>],
       tooltipText: [<span><em>dN/dt</em>: instantaneous per capita rate of population growth</span>],
@@ -177,11 +178,11 @@ const Logistic = {
         borderWidth: 1,
         pointRadius: 0,
         borderDash: [10, 5],
-        hidden: true,
+        hidden: false,
       },
       calc: (x, hook) => {
         const { t, n0, k, rMax, rDis } = hook
-        const y0 = Logistic.equationsObj.filter(eq => eq.name==="Continuous")[0].calc(t, hook)
+        const y0 = Logistic.equationsObj.filter(eq => eq.name === "Continuous")[0].calc(t, hook)
         // calculate derivative of N(t) to get m
         const mNumerator = k * (k - n0) * (n0 * rMax) * Math.exp(-rMax * t)
         const mDenominator = Math.pow((((k - n0) * Math.exp(-rMax * t)) + n0), 2)
@@ -198,6 +199,7 @@ const Logistic = {
       logisticType: "Continuous",
       addPoint: false,
       displayOutput: true,
+      isTangent: true,
       tooltipName: [<span><em>dN/dt</em></span>],
       tooltipText: [<span><em>dN/dt</em>: instantaneous per capita rate of population growth</span>],
       calc: (x, hook) => {
