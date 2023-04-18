@@ -84,6 +84,7 @@
   width: 50%;
   margin: 0;
 }
+
 .chart-container {
   width: 100%;
 }
@@ -111,6 +112,7 @@
   text-align: center;
   display: flex;
   flex-direction: row;
+  margin-top: 10px;
 }
 
 .input-grp {
@@ -171,13 +173,12 @@
 }
 
 .species-heading {
-  background-color: #36454F;
-  ;
+  background-color: #d6d6d6;
   height: 35px;
   align-items: center;
   padding-left: 10px;
   font-size: 15px;
-  color: white;
+  color: black;
   border-radius: 2px;
   margin-top: 0;
   margin-bottom: 8px;
@@ -202,8 +203,41 @@
   margin: 0px 1px;
 }
 
-.species-dropdown-btn {
-  /* width: 100%; */
+#species-dropdown-btn {
+  width: 100%;
+  border: none;
+  text-align: center;
+  font-weight: bold;
+  color: white;
+  background-color: #36454F;
+  margin-bottom: 0px;
+  /* margin-top: 20px */
+}
+
+.logistic-type-dropdown-btn{
+  width: 100%;
+  background-color: teal;
+  color: white;
+}
+
+#logistic-type-dropdown-btn {
+  width: 100%;
+  border: none;
+  text-align: center;
+  font-weight: bold;
+  /* color: white;
+  background-color: #36454F; */
+  margin-bottom: 5px;
+  margin-top: 20px;
+  /* background-color: teal;
+  color: white; */
+  border: 1px teal solid;
+  color: teal
+}
+
+#species-dropdown-label {
+  margin-top: 20px;
+  margin-bottom: 0px
 }
 
 .btn-container>* {
@@ -224,15 +258,18 @@
   /* margin-left: 10px; */
   padding: 5px 0px 0px 10px;
   display: inline-block;
-  background-color: lightgray;
+  /* background-color: lightgray; */
+  /* background-color: #737373;
+  color: white; */
 }
 
 .input-label-btn {
-  min-width: 65px;
+  min-width: 90px;
   display: inline-block;
   font-style: italic;
   text-align: left;
 }
+
 
 .directions-text {
   text-align: left;
@@ -272,6 +309,19 @@
     margin-left: 30px;
     /* margin-bottom: 50px; */
     height: 100%;
+  }
+
+  .chart-container-split {
+    width: 100%;
+    margin: 0;
+  }
+
+  .line-chart-container {
+    display: block;
+  }
+
+  .equation-heading {
+    margin-right: 0px;
   }
 
   .data-pane {

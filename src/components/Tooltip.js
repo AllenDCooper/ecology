@@ -7,7 +7,7 @@ const ButtonWithTooltip = (props) => {
 
   return (
     <div style={{ margin: '0' }}>
-      <Button className='input-label-btn' variant="solid" ref={setButton}>{props.tooltipName}</Button>
+      <Button className='input-label-btn' variant="solid" color="primary" ref={setButton}>{props.tooltipName}</Button>
       <Tooltip
         placement="top"
         reference={button}

@@ -1,4 +1,5 @@
 const Logistic = {
+  key: 1,
   multipleCharts: false,
   parametersObj: {
     species1: {

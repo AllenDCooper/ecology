@@ -4,7 +4,9 @@ import './App.css';
 // import { parametersObj, dataObj.speciesObj, equationsObj, graphSettings } from './utils/Data';
 import Logistic from './utils/Data_logistic';
 import Exponential from './utils/Data_exponential'
-import LotkaVolterraCompetition from "./utils/Data_lotka-volterra-competition";
+import LotkaVolterraCompetition from
+  "./utils/Data_lotka-volterra-competition";
+import LotkaVolterraPredation from "./utils/Data_lotka-volterra-predation";
 // NORTON DESIGN SYSTEM
 import { Button, Dropdown } from '@wwnds/react';
 // COMPONENTS
@@ -22,7 +24,7 @@ Chart.register(...registerables);
 function App() {
   // HOOKS
   const [dataObj, setDataObj] = useState(LotkaVolterraCompetition)
-  const [dataSelect, setDataSelect] = useState('Exponential')
+  const [dataSelect, setDataSelect] = useState('LotkaVolterraCompetition')
   const [logisticType, setLogisticType] = useState('Continuous')
   const [speciesSelected, setSpeciesSelected] = useState(
     dataObj.speciesObj[logisticType] ?
@@ -68,6 +70,11 @@ function App() {
       setDataObj(LotkaVolterraCompetition)
       setSpeciesSelected(Object.keys(LotkaVolterraCompetition.speciesObj.Continuous)[0])
       setInputVals(getStartObj(LotkaVolterraCompetition.parametersObj, LotkaVolterraCompetition.speciesObj.Continuous[species]))
+    } else if (dataSelect === "LotkaVolterraPredation") {
+      const species = Object.keys(LotkaVolterraPredation.speciesObj.Continuous)[0]
+      setDataObj(LotkaVolterraPredation)
+      setSpeciesSelected(Object.keys(LotkaVolterraPredation.speciesObj.Continuous)[0])
+      setInputVals(getStartObj(LotkaVolterraPredation.parametersObj, LotkaVolterraPredation.speciesObj.Continuous[species]))
     }
   }, [dataSelect])
 
@@ -146,26 +153,63 @@ function App() {
           <Dropdown.Option name='Exponential' selected='true'>Exponential</Dropdown.Option>
           <Dropdown.Option name='Logistic'>Logistic</Dropdown.Option>
           <Dropdown.Option name='LotkaVolterraCompetition'>LotkaVolterraCompetition</Dropdown.Option>
+          <Dropdown.Option name='LotkaVolterraPredation'>LotkaVolterraPredation</Dropdown.Option>
         </Dropdown>
       </div>
       <Header logisticType={logisticType} header={dataObj.header} />
       <div className="data-pane">
-        {dataObj.modelSettings.usingDiscrete ?
-          <Dropdown
-            buttonContents={logisticType}
-            onChange={handleLogisticType}
-            buttonWidth={'100%'}
-          >
-            <Dropdown.Option name='Continuous' selected='true'>Continuous</Dropdown.Option>
-            <Dropdown.Option name='Discrete'>Discrete</Dropdown.Option>
-          </Dropdown>
-          :
-          null
-        }
+        <div className="input-grp">
+          <div className="general-pane">
+            {dataObj.modelSettings.usingDiscrete ?
+              <Dropdown
+                buttonContents={logisticType}
+                onChange={handleLogisticType}
+                buttonWidth={'100%'}
+                // buttonClass={'logistic-type-dropdown-btn'}
+                buttonId={'logistic-type-dropdown-btn'}
+              >
+                <Dropdown.Option name='Continuous' selected='true'>Continuous</Dropdown.Option>
+                <Dropdown.Option name='Discrete'>Discrete</Dropdown.Option>
+              </Dropdown>
+              :
+              null
+
+            }
+            <SpeciesDropdown
+              speciesSelected={speciesSelected}
+              handleSpeciesChange={handleSpeciesChange}
+              speciesObj={dataObj.speciesObj[logisticType]}
+              key={parseInt(dataObj.key) + (logisticType === "Continuous" ? 0 : 1)}
+              dataSelect={dataSelect}
+              logisticType={logisticType}
+            />
+          </div>
+        </div>
+        <div className="input-grp">
+          <div className="general-pane">
+            {Object.entries(dataObj.parametersObj.general).map(([key, value]) => (
+              value.show[logisticType] ?
+                <InputField
+                  name={key}
+                  max={value.max}
+                  min={value.min}
+                  step={value.step}
+                  value={inputVals[key]}
+                  handleInputChange={handleInputChange}
+                  tooltipName={value.tooltipName}
+                  tooltipText={value.tooltipText}
+                />
+                :
+                null
+            ))}
+          </div>
+        </div>
         <div className={dataObj.parametersObj.species2 ? "input-grp-split" : "input-grp"}>
           <div className={dataObj.parametersObj.species2 ? 'species1-pane-split' : 'species1-pane'}>
             {dataObj.parametersObj.species2 ?
-              <h5 className='species-heading'>Species1</h5>
+              <h5 className='species-heading'>
+                {dataObj.speciesObj[logisticType][speciesSelected].name.species1}
+              </h5>
               : null}
             {Object.entries(dataObj.parametersObj.species1).map(([key, value]) => (
               value.show[logisticType] ?
@@ -204,7 +248,9 @@ function App() {
           </div>
           {dataObj.parametersObj.species2 ?
             <div className='species2-pane-split'>
-              <h5 className='species-heading'>Species2</h5>
+              <h5 className='species-heading'>
+                {dataObj.speciesObj[logisticType][speciesSelected].name.species2}
+              </h5>
               {Object.entries(dataObj.parametersObj.species2).map(([key, value]) => (
                 value.show[logisticType] ?
                   <InputField
@@ -249,25 +295,6 @@ function App() {
             null
           }
         </div>
-        <div className="input-grp">
-          <div className="general-pane">
-            {Object.entries(dataObj.parametersObj.general).map(([key, value]) => (
-              value.show[logisticType] ?
-                <InputField
-                  name={key}
-                  max={value.max}
-                  min={value.min}
-                  step={value.step}
-                  value={inputVals[key]}
-                  handleInputChange={handleInputChange}
-                  tooltipName={value.tooltipName}
-                  tooltipText={value.tooltipText}
-                />
-                :
-                null
-            ))}
-          </div>
-        </div>
       </div>
       <div className='data-pane2'>
         <div className='btn-container2'>
@@ -283,14 +310,6 @@ function App() {
         </div>
       </div>
       <div className={dataObj.multipleCharts ? "chart-pane-split" : "chart-pane"}>
-        <SpeciesDropdown
-          speciesSelected={speciesSelected}
-          handleSpeciesChange={handleSpeciesChange}
-          speciesObj={dataObj.speciesObj[logisticType]}
-          key={parseInt(dataObj.key) + (logisticType === "Continuous" ? 0 : 1)}
-          dataSelect={dataSelect}
-          logisticType={logisticType}
-        />
         {showVisual ?
           <div className='visual-container'>
             <div className={'animation-div'}>
