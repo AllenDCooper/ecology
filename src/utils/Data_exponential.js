@@ -135,7 +135,8 @@ const Exponential = {
     },
   ],
   graphSettings: {
-    aspectRatio: 2,
+    aspectRatio: 1.4,
+    responsive: true,
   },
   modelSettings: {
     usingDiscrete: false,

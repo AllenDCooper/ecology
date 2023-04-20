@@ -75,7 +75,8 @@
 
 .line-chart-container {
   width: 100%;
-  display: inline-flex;
+  display: block;
+  /* display: inline-flex; */
   flex-direction: row;
   flex-wrap: nowrap;
   align-content: center;
@@ -83,7 +84,7 @@
 }
 
 .chart-container-split {
-  width: 50%;
+  width: 100%;
   margin: 0;
 }
 
@@ -94,7 +95,7 @@
 .data-pane {
   width: 100%;
   /* float: left; */
-  padding: 10px 5px 5px 5px;
+  /* padding: 10px 5px 5px 5px; */
   text-align: left;
   display: flex;
   flex-direction: column;
@@ -110,7 +111,7 @@
 
 .data-pane2 {
   width: 100%;
-  padding: 0px 5px 10px 5px;
+  /* padding: 0px 5px 10px 5px; */
   text-align: center;
   display: flex;
   flex-direction: row;
@@ -278,11 +279,19 @@
 }
 
 .animation-div {
-  overflow: scroll;
+  overflow-x: hidden;
   overflow-y: hidden;
   display: flex;
   flex-wrap: wrap;
-  max-height: 100%
+  max-height: 100%;
+  align-content: space-around;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+.input-col {
+  /* margin: 0 15px; */
+  border-right: .5px solid gray;
 }
 
 .equation-heading-container {
@@ -299,15 +308,47 @@
 }
 
 .visual-container {
-  height: 200px;
+  height: 160px;
   display: block;
   /* border: 1px solid; */
   /* margin-left: 50px; */
   margin-top: 10px;
+  padding: 5px 0px 0px 25px;
 }
 
 .tangent-switch-container {
-  text-align: right;
+  width: 100%;
+  /* display: inline-flex;
+  flex-direction: row; */
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.switch-label {
+  min-width: 100px;
+  margin-right: 0px;
+}
+
+.switch-btn {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+}
+
+.switch-container {
+  min-height: 40px;
+  position: relative;
+  padding-left: 10px;
+}
+
+.nds-field__info {
+  margin-right: 0px;
+}
+
+.nds-switch {
+  position: relative;
+  width: 100%;
 }
 
 .chart-title {
@@ -338,6 +379,44 @@
   width: 60px;
 }
 
+.data-pane-container {
+  width: 50%;
+  display: inline-block;
+}
+
+.chart-pane-split {
+  width: 100%;
+  display: inline-block;
+  margin: 0px;
+}
+
+.chart-pane {
+  width: 100%;
+  display: inline-block;
+  margin: 0px;
+}
+
+.col {
+  flex-basis: 0;
+  flex-grow: 1;
+  max-width: 100%;
+  position: relative;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+/* .nds-switch {
+  width: calc(50% - 10px)
+} */
+
 @media only screen and (max-width: 840px) {
   .chart-pane {
     float: right;
@@ -364,7 +443,7 @@
   .data-pane {
     width: 100%;
     /* float: left; */
-    padding: 10px 5px 5px 5px;
+    /* padding: 10px 5px 5px 5px; */
     text-align: left;
     display: flex;
     flex-direction: column;

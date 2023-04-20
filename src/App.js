@@ -161,232 +161,262 @@ function App() {
         </Dropdown>
       </div>
       <Header logisticType={logisticType} header={dataObj.header} />
-      <div className="data-pane">
-        <div className="input-grp">
-          <div className="general-pane">
-            {dataObj.modelSettings.usingDiscrete ?
-              <Dropdown
-                buttonContents={logisticType}
-                onChange={handleLogisticType}
-                buttonWidth={'100%'}
-                // buttonClass={'logistic-type-dropdown-btn'}
-                buttonId={'logistic-type-dropdown-btn'}
-                matchWidth={'button'}
-              >
-                <Dropdown.Option name='Continuous' selected='true'>Continuous</Dropdown.Option>
-                <Dropdown.Option name='Discrete'>Discrete</Dropdown.Option>
-              </Dropdown>
-              :
-              null
+      <div className="general-pane">
+        {dataObj.modelSettings.usingDiscrete ?
+          <Dropdown
+            buttonContents={logisticType}
+            onChange={handleLogisticType}
+            buttonWidth={'100%'}
+            // buttonClass={'logistic-type-dropdown-btn'}
+            buttonId={'logistic-type-dropdown-btn'}
+            matchWidth={'button'}
+          >
+            <Dropdown.Option name='Continuous' selected='true'>Continuous</Dropdown.Option>
+            <Dropdown.Option name='Discrete'>Discrete</Dropdown.Option>
+          </Dropdown>
+          :
+          null
 
-            }
-            <SpeciesDropdown
-              speciesSelected={speciesSelected}
-              handleSpeciesChange={handleSpeciesChange}
-              speciesObj={dataObj.speciesObj[logisticType]}
-              key={parseInt(dataObj.key) + (logisticType === "Continuous" ? 0 : 1)}
-              dataSelect={dataSelect}
-              logisticType={logisticType}
-            />
-          </div>
-        </div>
-        <div className="input-grp">
-          <div className="general-pane">
-            {Object.entries(dataObj.parametersObj.general).map(([key, value]) => (
-              value.show[logisticType] ?
-                <InputField
-                  name={key}
-                  max={value.max}
-                  min={value.min}
-                  step={value.step}
-                  value={inputVals[key]}
-                  handleInputChange={handleInputChange}
-                  tooltipName={value.tooltipName}
-                  tooltipText={value.tooltipText}
-                />
-                :
-                null
-            ))}
-          </div>
-        </div>
-        <div className={dataObj.parametersObj.species2 ? "input-grp-split" : "input-grp"}>
-          <div className={dataObj.parametersObj.species2 ? 'species1-pane-split' : 'species1-pane'}>
-            {dataObj.parametersObj.species2 ?
-              <h5 className='species-heading'>
-                {dataObj.speciesObj[logisticType][speciesSelected].name.species1}
-              </h5>
-              : null}
-            {Object.entries(dataObj.parametersObj.species1).map(([key, value]) => (
-              value.show[logisticType] ?
-                <InputField
-                  name={key}
-                  max={value.max}
-                  min={value.min}
-                  step={value.step}
-                  value={inputVals[key]}
-                  handleInputChange={handleInputChange}
-                  tooltipName={value.tooltipName}
-                  tooltipText={value.tooltipText}
-                />
-                :
-                null
-            ))}
-
-            {dataObj.equationsObj.map((eq) => (
-              eq.displayOutput && (eq.logisticType === logisticType) && (!eq.isTangent || showTangent)
-                ?
-                <>
-                  {eq.logisticType === logisticType ?
-                    <OutputField
-                      value={
-                        formatNumber(eq.calc(inputVals.t, inputVals), 8, 0)}
-                      tooltipName={eq.tooltipName}
-                      tooltipText={eq.tooltipText}
+        }
+        <SpeciesDropdown
+          speciesSelected={speciesSelected}
+          handleSpeciesChange={handleSpeciesChange}
+          speciesObj={dataObj.speciesObj[logisticType]}
+          key={parseInt(dataObj.key) + (logisticType === "Continuous" ? 0 : 1)}
+          dataSelect={dataSelect}
+          logisticType={logisticType}
+        />
+      </div>
+      <div className="row" >
+        <div className="col input-col">
+          <div className="data-pane">
+            <div className="input-grp">
+            </div>
+            <div className="input-grp">
+              <div className="general-pane">
+                {Object.entries(dataObj.parametersObj.general).map(([key, value]) => (
+                  value.show[logisticType] ?
+                    <InputField
+                      name={key}
+                      max={value.max}
+                      min={value.min}
+                      step={value.step}
+                      value={inputVals[key]}
+                      handleInputChange={handleInputChange}
+                      tooltipName={value.tooltipName}
+                      tooltipText={value.tooltipText}
                     />
                     :
                     null
-                  }
-                </>
-                :
-                null
-            ))
-            }
-          </div>
-          {dataObj.parametersObj.species2 ?
-            <div className='species2-pane-split'>
-              <h5 className='species-heading'>
-                {dataObj.speciesObj[logisticType][speciesSelected].name.species2}
-              </h5>
-              {Object.entries(dataObj.parametersObj.species2).map(([key, value]) => (
-                value.show[logisticType] ?
-                  <InputField
-                    name={key}
-                    max={value.max}
-                    min={value.min}
-                    step={value.step}
-                    value={inputVals[key]}
-                    handleInputChange={handleInputChange}
-                    tooltipName={value.tooltipName}
-                    tooltipText={value.tooltipText}
-                  />
-                  :
-                  null
-              ))}
-              {dataObj.equationsObj.map((eq) => (
-                eq.displayOutput ?
-                  <>
-                    {eq.logisticType === logisticType ?
-                      <OutputField
-                        value={
-                          formatNumber(eq.calc(inputVals.t, inputVals), 8, 1)}
-                        tooltipName={[<span>N<sub>t</sub></span>]}
-                        tooltipText={[<span><em>N<sub>t</sub></em>: Ending population abundance</span>]}
+                ))}
+              </div>
+            </div>
+            <div className={dataObj.parametersObj.species2 ? "input-grp-split" : "input-grp"}>
+              <div className={dataObj.parametersObj.species2 ? 'species1-pane-split' : 'species1-pane'}>
+                {dataObj.parametersObj.species2 ?
+                  <h5 className='species-heading'>
+                    {dataObj.speciesObj[logisticType][speciesSelected].name.species1}
+                  </h5>
+                  : null}
+                {Object.entries(dataObj.parametersObj.species1).map(([key, value]) => (
+                  value.show[logisticType] ?
+                    <InputField
+                      name={key}
+                      max={value.max}
+                      min={value.min}
+                      step={value.step}
+                      value={inputVals[key]}
+                      handleInputChange={handleInputChange}
+                      tooltipName={value.tooltipName}
+                      tooltipText={value.tooltipText}
+                    />
+                    :
+                    null
+                ))}
+
+                {dataObj.equationsObj.map((eq) => (
+                  eq.displayOutput && (eq.logisticType === logisticType) && (!eq.isTangent || showTangent)
+                    ?
+                    <>
+                      {eq.logisticType === logisticType ?
+                        <OutputField
+                          value={
+                            formatNumber(eq.calc(inputVals.t, inputVals), 8, 0)}
+                          tooltipName={eq.tooltipName}
+                          tooltipText={eq.tooltipText}
+                        />
+                        :
+                        null
+                      }
+                    </>
+                    :
+                    null
+                ))
+                }
+              </div>
+              {dataObj.parametersObj.species2 ?
+                <div className='species2-pane-split'>
+                  <h5 className='species-heading'>
+                    {dataObj.speciesObj[logisticType][speciesSelected].name.species2}
+                  </h5>
+                  {Object.entries(dataObj.parametersObj.species2).map(([key, value]) => (
+                    value.show[logisticType] ?
+                      <InputField
+                        name={key}
+                        max={value.max}
+                        min={value.min}
+                        step={value.step}
+                        value={inputVals[key]}
+                        handleInputChange={handleInputChange}
+                        tooltipName={value.tooltipName}
+                        tooltipText={value.tooltipText}
                       />
                       :
-                      <OutputField
-                        value={
-                          formatNumber(eq.calc(inputVals.t, inputVals), 8, 1)
+                      null
+                  ))}
+                  {dataObj.equationsObj.map((eq) => (
+                    eq.displayOutput ?
+                      <>
+                        {eq.logisticType === logisticType ?
+                          <OutputField
+                            value={
+                              formatNumber(eq.calc(inputVals.t, inputVals), 8, 1)}
+                            tooltipName={[<span>N<sub>t</sub></span>]}
+                            tooltipText={[<span><em>N<sub>t</sub></em>: Ending population abundance</span>]}
+                          />
+                          :
+                          <OutputField
+                            value={
+                              formatNumber(eq.calc(inputVals.t, inputVals), 8, 1)
+                            }
+                            tooltipName={[<span><em>dN/dt</em></span>]}
+                            tooltipText={[<span><em>dN/dt</em>: instantaneous per capita rate of population growth</span>]}
+                          />
                         }
-                        tooltipName={[<span><em>dN/dt</em></span>]}
-                        tooltipText={[<span><em>dN/dt</em>: instantaneous per capita rate of population growth</span>]}
-                      />
-                    }
-                  </>
-                  :
-                  null
-              ))
+                      </>
+                      :
+                      null
+                  ))
+                  }
+                </div>
+                :
+                null
               }
             </div>
-            :
-            null
-          }
+            <div className='tangent-switch-container'>
+              {dataSelect === 'Exponential' || (dataSelect === 'Logistic' && logisticType === "Continuous")
+                ?
+                <div className='switch-container'>
+                  <Switch
+                    labelClass='switch-label'
+                    className='switch-btn'
+                    label={[<span><em>dN/dt</em></span>]}
+                    checked={false}
+                    onToggle={handleTangentSwitch}
+                  // key={dataObj.key}
+                  />
+                </div>
+                :
+                null
+              }
+              <div className='switch-container'>
+                <Switch
+                  labelClass='switch-label'
+                  className='switch-btn'
+                  label={[<span>Visual</span>]}
+                  checked={false}
+                  onToggle={handleVisualToggle}
+                // key={dataObj.key}
+                />
+              </div>
+              <div className='switch-container'>
+                <Switch
+                  labelClass='switch-label'
+                  className='switch-btn'
+                  label={[<span>Animation</span>]}
+                  checked={false}
+                  onToggle={handleAnimationToggle}
+                // key={dataObj.key}
+                />
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div className='tangent-switch-container'>
-        {dataSelect === 'Exponential' || (dataSelect === 'Logistic' && logisticType === "Continuous")
-          ?
-          <Switch
-            label={[<span>Show <em>dN/dt</em></span>]}
-            checked={false}
-            onToggle={handleTangentSwitch}
-            key={dataObj.key}
-          />
-          :
-          null
-        }
+        <div className='col'>
+          <div className={dataObj.multipleCharts ? "chart-pane-split" : "chart-pane"}>
+            {dataObj.multipleCharts ?
+              <div className='line-chart-container'
+              >
+                <ChartContainer
+                  inputVals={inputVals}
+                  equationsObj={dataObj.equationsObj.filter(eq => !eq.isRK)}
+                  tMax={inputVals.tmax}
+                  logisticType={logisticType}
+                  speciesSettings={dataObj.speciesObj[logisticType][speciesSelected].settings}
+                  graphOptions={dataObj.graphSettings}
+                  multipleCharts={dataObj.multipleCharts}
+                  key={1}
+                  name={dataObj.speciesObj[logisticType][speciesSelected].name}
+                  chartTitle={dataObj.chartTitle[0]}
+                />
+                <ChartContainer
+                  inputVals={inputVals}
+                  equationsObj={dataObj.equationsObj.filter(eq => eq.isRK)}
+                  tMax={inputVals.tmax}
+                  logisticType={logisticType}
+                  speciesSettings={dataObj.speciesObj[logisticType][speciesSelected].settings}
+                  graphOptions={dataObj.graphSettings}
+                  multipleCharts={dataObj.multipleCharts}
+                  key={2}
+                  name={dataObj.speciesObj[logisticType][speciesSelected].name}
+                  chartTitle={dataObj.chartTitle[1]}
+                />
+              </div>
+              :
+              <ChartContainer
+                inputVals={inputVals}
+                equationsObj={dataObj.equationsObj}
+                tMax={dataObj.parametersObj.general.t.max}
+                logisticType={logisticType}
+                speciesSettings={dataObj.speciesObj[logisticType][speciesSelected].settings}
+                graphOptions={dataObj.graphSettings}
+                multipleCharts={dataObj.multipleCharts}
+                key={0}
+                showTangent={showTangent}
+                name={dataObj.speciesObj[logisticType][speciesSelected].name}
+                chartTitle={dataObj.chartTitle}
+              />
+            }
+            {showVisual ?
+              <div className='visual-container'>
+                <div className={'animation-div'}>
+                  <VisualOutput
+                    nValue={
+                      dataObj.equationsObj.filter(eq => eq.displayOutput).filter(eq => eq.logisticType === logisticType)[0].calc(inputVals.t, inputVals)
+                    }
+                    species={speciesSelected}
+                    emoji={dataObj.speciesObj[logisticType][speciesSelected].emoji}
+                  />
+                </div>
+              </div>
+              :
+              null
+            }
+          </div>
+        </div>
       </div>
       <div className='data-pane2'>
         <div className='btn-container2'>
-          <Button className='control-btn' variant="solid" color={'base'} onClick={handleAnimationToggle}>
+          {/* <Button className='control-btn' variant="solid" color={'base'} onClick={handleAnimationToggle}>
             {!animationOn ? 'Start Animation' : 'Stop Animation'}
-          </Button>
-          <Button className='control-btn' variant="solid" color={'base'} onClick={handleVisualToggle}>
+          </Button> */}
+          {/* <Button className='control-btn' variant="solid" color={'base'} onClick={handleVisualToggle}>
             {!showVisual ? 'Show Visual' : 'Hide Visual'}
-          </Button>
+          </Button> */}
           <Button className='control-btn' variant="solid" color={'base'} onClick={handleReset}>
             Reset
           </Button>
         </div>
-      </div>
-      <div className={dataObj.multipleCharts ? "chart-pane-split" : "chart-pane"}>
-        {showVisual ?
-          <div className='visual-container'>
-            <div className={'animation-div'}>
-              <VisualOutput
-                nValue={
-                  dataObj.equationsObj.filter(eq => eq.displayOutput).filter(eq => eq.logisticType === logisticType)[0].calc(inputVals.t, inputVals)
-                }
-                species={speciesSelected}
-                emoji={dataObj.speciesObj[logisticType][speciesSelected].emoji}
-              />
-            </div>
-          </div>
-          :
-          null
-        }
-        {dataObj.multipleCharts ?
-          <div className='line-chart-container'
-          >
-            <ChartContainer
-              inputVals={inputVals}
-              equationsObj={dataObj.equationsObj.filter(eq => !eq.isRK)}
-              tMax={inputVals.tmax}
-              logisticType={logisticType}
-              speciesSettings={dataObj.speciesObj[logisticType][speciesSelected].settings}
-              graphOptions={dataObj.graphSettings}
-              multipleCharts={dataObj.multipleCharts}
-              key={1}
-              name={dataObj.speciesObj[logisticType][speciesSelected].name}
-              chartTitle={dataObj.chartTitle[0]}
-            />
-            <ChartContainer
-              inputVals={inputVals}
-              equationsObj={dataObj.equationsObj.filter(eq => eq.isRK)}
-              tMax={inputVals.tmax}
-              logisticType={logisticType}
-              speciesSettings={dataObj.speciesObj[logisticType][speciesSelected].settings}
-              graphOptions={dataObj.graphSettings}
-              multipleCharts={dataObj.multipleCharts}
-              key={2}
-              name={dataObj.speciesObj[logisticType][speciesSelected].name}
-              chartTitle={dataObj.chartTitle[1]}
-            />
-          </div>
-          :
-          <ChartContainer
-            inputVals={inputVals}
-            equationsObj={dataObj.equationsObj}
-            tMax={dataObj.parametersObj.general.t.max}
-            logisticType={logisticType}
-            speciesSettings={dataObj.speciesObj[logisticType][speciesSelected].settings}
-            graphOptions={dataObj.graphSettings}
-            multipleCharts={dataObj.multipleCharts}
-            key={0}
-            showTangent={showTangent}
-            name={dataObj.speciesObj[logisticType][speciesSelected].name}
-            chartTitle={dataObj.chartTitle}
-          />
-        }
       </div>
     </div >
   );

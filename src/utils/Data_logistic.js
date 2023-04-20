@@ -105,7 +105,6 @@ const Logistic = {
     }
   },
   equationsObj: [
-    // tangent equation formula that calculates y values from given parametersObj
     {
       name: 'Continuous',
       plot: true,
@@ -235,7 +234,7 @@ const Logistic = {
     },
   ],
   graphSettings: {
-    aspectRatio: 2,
+    aspectRatio: 1.4,
   },
   modelSettings: {
     usingDiscrete: true
