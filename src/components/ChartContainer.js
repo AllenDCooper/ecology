@@ -1,8 +1,13 @@
 import React from 'react';
 import LineChart from './LineChart';
+import ScatterChart from './ScatterChart';
+import { Line } from 'react-chartjs-2';
+
 
 const ChartContainer = (props) => {
   console.log(props)
+  console.log(props.equationsObj[0].type)
+
   // function that takes an equation and parameter values to generates an array of data to be used by chartjs to plot a graph
   const generateDataSetFromFunction = (equation, inputObj, isPoint) => {
     const newDataSetArr = []
@@ -20,6 +25,48 @@ const ChartContainer = (props) => {
         }
         newDataSetArr.push(newDataPointObj);
       }
+      return newDataSetArr
+    }
+    else if (equation.name === 'isocline1' || equation.name === 'isocline2') {
+      for (let i = 0; i <= props.speciesSettings.x.max - 1; i++) {
+        let newDataPointObj = {}
+        const nt = equation.calc(i, inputObj)
+        if (isPoint) {
+          if (i === (inputObj.t)) {
+            newDataPointObj = {
+              id: i * interval,
+              xValue: i * interval,
+              value: nt,
+            }
+          } else {
+            newDataPointObj = {}
+          }
+        } else {
+          newDataPointObj = {
+            id: i,
+            xValue: i,
+            value: nt
+          }
+        }
+        newDataSetArr.push(newDataPointObj);
+      }
+      console.log(newDataSetArr)
+      return (newDataSetArr)
+    }
+    else if (equation.name === 'phase-plane') {
+      const outputArr = equation.calc(props.tMax, inputObj)
+      console.log(outputArr)
+      // const h = props.tMax / 1000;
+      const newDataSetArr = []
+      for (let i = 0; i < outputArr.length; i++) {
+        let newDataPointObj = {
+          id: outputArr[i][0],
+          xValue: outputArr[i][0],
+          value: outputArr[i][1]
+        }
+        newDataSetArr.push(newDataPointObj);
+      }
+      console.log(newDataSetArr)
       return newDataSetArr
     }
     else {
@@ -64,7 +111,6 @@ const ChartContainer = (props) => {
         let newPointSet1
         let newPointSet2
         const dataArr = generateDataSetFromFunction(value, inputObj, false)
-        console.log(dataArr)
         if (index === 0) {
           newLabel.push(...dataArr.map(data => data.xValue.toFixed(0)))
         }
@@ -81,8 +127,6 @@ const ChartContainer = (props) => {
           }
           if (value.addPoint) {
             let pointIndex = Math.floor((inputObj.t / props.tMax) * 1000)
-            console.log(pointIndex)
-            console.log(dataArr[pointIndex])
             newPointSet1 = {
               label: '',
               data: dataArr.map((data, index) => (index === pointIndex ? data.value[0] : null)),
@@ -99,7 +143,12 @@ const ChartContainer = (props) => {
           }
           newDataset.push(newSet1, newSet2)
         }
-      } else {
+      }
+      else if (value.name === 'phase-plane') {
+        const dataArr = generateDataSetFromFunction(value, inputObj, false)
+        newDataset.push(dataArr)
+      }
+      else {
         if (index === 0) {
           newLabel.push(...generateDataSetFromFunction(value, inputObj, false).map(data => data.xValue.toFixed(0)))
         }
@@ -107,7 +156,7 @@ const ChartContainer = (props) => {
         if (!value.isTangent || props.showTangent) {
           if (value.plot) {
             const newSet = {
-              label: value.name==='isocline1' ? props.name.species1 : value.name==='isocline2' ? props.name.species2 : value.label,
+              label: value.name === 'isocline1' ? props.name.species1 : value.name === 'isocline2' ? props.name.species2 : value.label,
               data: generateDataSetFromFunction(value, inputObj, false).map(data => data.value),
               ...returnFormat(value.format)
             }
@@ -131,13 +180,25 @@ const ChartContainer = (props) => {
     })
   }
   return (
-    <LineChart
-      chartData={generateChartDataObj(props.inputVals)}
-      speciesSettings={props.speciesSettings}
-      graphOptions={props.graphOptions}
-      multipleCharts={props.multipleCharts}
-      chartTitle={props.chartTitle}
-    />
+    <>
+      {props.equationsObj[0].type==='scatter' ?
+        <ScatterChart
+          chartData={generateChartDataObj(props.inputVals)}
+          speciesSettings={props.speciesSettings}
+          graphOptions={props.graphOptions}
+          multipleCharts={props.multipleCharts}
+          chartTitle={props.chartTitle}
+        />
+        :
+        <LineChart
+          chartData={generateChartDataObj(props.inputVals)}
+          speciesSettings={props.speciesSettings}
+          graphOptions={props.graphOptions}
+          multipleCharts={props.multipleCharts}
+          chartTitle={props.chartTitle}
+        />
+      }
+    </>
   )
 }
 

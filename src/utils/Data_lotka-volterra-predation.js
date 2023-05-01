@@ -6,7 +6,7 @@ const LotkaVolterraPredation = {
     species1:
     {
       r: {
-        start: 0.55,
+        start: 0.1,
         min: -1,
         max: 2,
         step: 0.1,
@@ -18,10 +18,10 @@ const LotkaVolterraPredation = {
         }
       },
       f: {
-        start: 250,
+        start: 0.002,
         min: 0,
-        max: 300,
-        step: 1,
+        max: 1,
+        step: .001,
         tooltipName: [<span>f</span>],
         tooltipText: [<span><em>f</em>: the capture rate</span>],
         show: {
@@ -30,7 +30,7 @@ const LotkaVolterraPredation = {
         }
       },
       np0: {
-        start: 10,
+        start: 80,
         min: 0,
         max: 200,
         step: 1,
@@ -44,10 +44,10 @@ const LotkaVolterraPredation = {
     },
     species2: {
       cf: {
-        start: 0.55,
-        min: -1,
-        max: 2,
-        step: 0.1,
+        start: 0.0025,
+        min: 0,
+        max: 1,
+        step: 0.0005,
         tooltipName: [<span>cf</span>],
         tooltipText: [<span><em>cf</em>: the exploiter conversion factor</span>],
         show: {
@@ -56,10 +56,10 @@ const LotkaVolterraPredation = {
         }
       },
       d: {
-        start: 200,
+        start: 0.2,
         min: 0,
-        max: 300,
-        step: 1,
+        max: 1,
+        step: .001,
         tooltipName: [<span>d</span>],
         tooltipText: [<span><em>d</em>: per capita death rate</span>],
         show: {
@@ -68,7 +68,7 @@ const LotkaVolterraPredation = {
         }
       },
       ne0: {
-        start: 15,
+        start: 20,
         min: 0,
         max: 200,
         step: 1,
@@ -84,7 +84,7 @@ const LotkaVolterraPredation = {
       t: {
         start: 0,
         min: 0,
-        max: 105,
+        max: 120,
         step: 1,
         tooltipName: [<span>t</span>],
         tooltipText: [<span><em>t</em>: time</span>],
@@ -94,9 +94,9 @@ const LotkaVolterraPredation = {
         }
       },
       tmax: {
-        start: 105,
+        start: 120,
         min: 0,
-        max: 105,
+        max: 160,
         step: 1,
         tooltipName: [<span>t<sub>max</sub></span>],
         tooltipText: [<span><em>t<sub>max</sub></em>: maximum time value for model</span>],
@@ -112,15 +112,17 @@ const LotkaVolterraPredation = {
     Continuous: {
       'Fish-Eagle': {
         values: {
-          t: 0, rMax: 1, n0: 10
+          np0: 80, r: 0.1, f: 0.002,
+          ne0: 20, cf: 0.0025, d: 0.2,
+          t: 0, tmax: 120
         },
         name: {
           species1: 'Fish',
           species2: 'Eagle'
         },
         emoji: {
-          species1: [<span>&#x1F408;</span>],
-          species2: [],
+          species1: [<span>&#129413;</span>],
+          species2: [<span>&#128031;</span>],
         },
         settings: { y: { min: 0 }, x: { min: 0 } }
       },
@@ -129,7 +131,8 @@ const LotkaVolterraPredation = {
   equationsObj: [
     // tangent equation formula that calculates y values from given parametersObj
     {
-      name: 'isocline1',
+      name: 'phase-plane',
+      type: 'scatter',
       plot: true,
       alwaysShow: false,
       logisticType: "Continuous",
@@ -143,43 +146,45 @@ const LotkaVolterraPredation = {
         pointRadius: 0,
       },
       calc: (x, hook) => {
-        const { a, k1 } = hook
-        let b = k1 / a
-        let m = (-1 / a)
-        let equationOutput = (m * x) + b
-        return equationOutput
-      }
-    },
-    {
-      name: 'isocline2',
-      plot: true,
-      alwaysShow: true,
-      logisticType: "Continuous",
-      addPoint: false,
-      displayOutput: false,
-      label: "Species2",
-      format: {
-        backgroundColor: ['blue'],
-        borderColor: 'blue',
-        borderWidth: 3,
-        pointRadius: 0,
+        const { r, f, cf, d, ne0, np0, t, tmax } = hook
+        const Nt = 1000
+        let ys = [[np0, ne0]]
+        const derivative = (X, r, f, cf, d) => {
+          let x = parseFloat(X[0]);
+          let y = parseFloat(X[1]);
+          let dotx = (r * x) - (f * x * y)
+          let doty = (cf * x * y) - (d * y)
+          return [dotx, doty];
+        }
+        let h = tmax / Nt;
+        let max = Math.floor(x / h)
+
+        for (let i = 0; i < max; i++) {
+          const rkFactor1 = [ys[i][0], ys[i][1]]
+          const rk1 = derivative(rkFactor1, r, f, cf, d)
+          const rkFactor2 = [ys[i][0] + h / 2, ys[i][1] + (rk1[1] * (h / 2))]
+          const rk2 = derivative(rkFactor2, r, f, cf, d)
+          const rkFactor3 = [ys[i][0] + h / 2, ys[i][1] + (rk2[1] * (h / 2))]
+          const rk3 = derivative(rkFactor3, r, f, cf, d)
+          const rkFactor4 = [ys[i][0] + h, ys[i][1] + (rk3[1] * h)]
+          const rk4 = derivative(rkFactor4, r, f, cf, d)
+          const xCalc = (ys[i][0] + ((rk1[0] + (2 * rk2[0]) + (2 * rk3[0]) + rk4[0]) / 6) * h);
+          const yCalc = (ys[i][1] + ((rk1[1] + (2 * rk2[1]) + (2 * rk3[1]) + rk4[1]) / 6) * h);
+          ys[i + 1] = [xCalc, yCalc]
+        }
+        return ys
       },
-      calc: (x, hook) => {
-        const { b, k2 } = hook
-        let B = k2 / b
-        let m = (-1 / b)
-        let equationOutput = (m * x) + B
-        return equationOutput
-      }
     },
     {
       name: 'runRungeKutta4Method',
+      type: 'line',
       plot: true,
       alwaysShow: true,
       logisticType: "Continuous",
       addPoint: true,
       displayOutput: true,
       isRK: true,
+      hasPhasePlane: true,
       label: {
         graph1: 'Species1',
         graph2: 'Species1'
@@ -201,14 +206,14 @@ const LotkaVolterraPredation = {
         }
       },
       calc: (x, hook) => {
-        const { a, b, r1, r2, k1, k2, n10, n20, t, tmax } = hook
+        const { r, f, cf, d, ne0, np0, t, tmax } = hook
         const Nt = 1000
-        let ys = [[n10, n20]]
-        const derivative = (X, a, b, k1, k2, r1, r2) => {
+        let ys = [[np0, ne0]]
+        const derivative = (X, r, f, cf, d) => {
           let x = parseFloat(X[0]);
           let y = parseFloat(X[1]);
-          let dotx = r1 * x * ((k1 - x - (a * y)) / k1)
-          let doty = r2 * y * ((k2 - y - (b * x)) / k2)
+          let dotx = (r * x) - (f * x * y)
+          let doty = (cf * x * y) - (d * y)
           return [dotx, doty];
         }
         let h = tmax / Nt;
@@ -216,18 +221,17 @@ const LotkaVolterraPredation = {
 
         for (let i = 0; i < max; i++) {
           const rkFactor1 = [ys[i][0], ys[i][1]]
-          const rk1 = derivative(rkFactor1, a, b, k1, k2, r1, r2)
+          const rk1 = derivative(rkFactor1, r, f, cf, d)
           const rkFactor2 = [ys[i][0] + h / 2, ys[i][1] + (rk1[1] * (h / 2))]
-          const rk2 = derivative(rkFactor2, a, b, k1, k2, r1, r2)
+          const rk2 = derivative(rkFactor2, r, f, cf, d)
           const rkFactor3 = [ys[i][0] + h / 2, ys[i][1] + (rk2[1] * (h / 2))]
-          const rk3 = derivative(rkFactor3, a, b, k1, k2, r1, r2)
+          const rk3 = derivative(rkFactor3, r, f, cf, d)
           const rkFactor4 = [ys[i][0] + h, ys[i][1] + (rk3[1] * h)]
-          const rk4 = derivative(rkFactor4, a, b, k1, k2, r1, r2)
+          const rk4 = derivative(rkFactor4, r, f, cf, d)
           const xCalc = (ys[i][0] + ((rk1[0] + (2 * rk2[0]) + (2 * rk3[0]) + rk4[0]) / 6) * h);
           const yCalc = (ys[i][1] + ((rk1[1] + (2 * rk2[1]) + (2 * rk3[1]) + rk4[1]) / 6) * h);
           ys[i + 1] = [xCalc, yCalc]
         }
-        console.log(ys)
         return ys
       },
     },

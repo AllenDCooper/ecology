@@ -158,13 +158,13 @@ const LotkaVolterraCompetition = {
         },
         name: {
           species1: 'Rabbit',
-          species2: 'Squirrel'
+          species2: 'Chipmunk'
         },
         emoji: {
-          species1: [<span>&#x1F408;</span>],
-          species2: [<span>&#x1F408;</span>],
+          species1: [<span>&#128007;</span>],
+          species2: [<span>&#128063;</span>],
         },
-        settings: { y: { min: 0 }, x: { min: 0 } }
+        settings: { y: { min: 0, max: 500 }, x: { min: 0, max: 500 } }
       },
       'Cat-Dog': {
         values: {
@@ -180,7 +180,7 @@ const LotkaVolterraCompetition = {
           species1: [<span>&#x1F408;</span>],
           species2: [<span>&#x1F408;</span>],
         },
-        settings: { y: { min: 0 }, x: { min: 0 } }
+        settings: { y: { min: 0, max: 500 }, x: { min: 0, max: 500 } }
       },
     }
   },
@@ -202,9 +202,7 @@ const LotkaVolterraCompetition = {
       },
       calc: (x, hook) => {
         const { a, k1 } = hook
-        let b = k1 / a
-        let m = (-1 / a)
-        let equationOutput = (m * x) + b
+        let equationOutput = ((k1 - x) / a)
         return equationOutput
       }
     },
@@ -224,9 +222,7 @@ const LotkaVolterraCompetition = {
       },
       calc: (x, hook) => {
         const { b, k2 } = hook
-        let B = k2 / b
-        let m = (-1 / b)
-        let equationOutput = (m * x) + B
+        let equationOutput = k2 - (b * x)
         return equationOutput
       }
     },

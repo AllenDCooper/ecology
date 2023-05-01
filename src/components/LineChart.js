@@ -13,6 +13,7 @@ function LineChart(props) {
 
   const x = {
     min: 0,
+    // max: 500,
     title: {
       display: true,
       text: 'Time (t)',
@@ -57,10 +58,10 @@ function LineChart(props) {
         display: true,
         labels: {
           filter: (legendItem, data) => {
-            console.log(data)
-            console.log(data.datasets)
-            console.log(data.datasets[0])
-            console.log(typeof legendItem.datasetIndex)
+            // console.log(data)
+            // console.log(data.datasets)
+            // console.log(data.datasets[0])
+            // console.log(typeof legendItem.datasetIndex)
             return !data.datasets[legendItem.datasetIndex].isPoint
           },
           padding: 15,
