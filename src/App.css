@@ -354,6 +354,8 @@
 .visual-scale-container {
   width: 100%;
   text-align: left;
+  margin-top: 10px;
+  background-color: rgb(239,239,239);
 }
 
 .tangent-switch-container {

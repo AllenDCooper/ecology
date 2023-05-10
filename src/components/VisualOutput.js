@@ -8,7 +8,7 @@ const VisualOutput = (props) => {
   const area = props.height * props.width
   console.log(area);
   const maxItemsPerRow = Math.floor(props.width / 16);
-  const maxRows = Math.floor((props.height - 26) / 16)
+  const maxRows = Math.floor((props.height - 36) / 16)
   const maxItems = maxItemsPerRow * maxRows
   console.log(maxItems)
   const isScale = props.nValue > maxItems ? true : false
@@ -71,16 +71,16 @@ const VisualOutput = (props) => {
           length: N1,
           ratio: N2 / N1,
           larger: 'N1',
-          icon1: <span style={{ fontSize: '8px', height: '16px', width: '16px' }}>{props.emoji.species1[0]}</span>,
-          icon2: <span style={{ fontSize: '8px', height: '16px', width: '16px' }}>{props.emoji.species2[0]}</span>,
+          icon1: <span style={{ fontSize: '12px', height: '16px', width: '16px' }}>{props.emoji.species1[0]}</span>,
+          icon2: <span style={{ fontSize: '12px', height: '16px', width: '16px' }}>{props.emoji.species2[0]}</span>,
         }
       } else {
         return {
           length: N2,
           ratio: N1 / N2,
           larger: 'N2',
-          icon1: <span style={{ fontSize: '8px', height: '16px', width: '16px' }}>{props.emoji.species2[0]}</span>,
-          icon2: <span style={{ fontSize: '8px', height: '16px', width: '16px' }}>{props.emoji.species1[0]}</span>,
+          icon1: <span style={{ fontSize: '12px', height: '16px', width: '16px' }}>{props.emoji.species2[0]}</span>,
+          icon2: <span style={{ fontSize: '12px', height: '16px', width: '16px' }}>{props.emoji.species1[0]}</span>,
         }
       }
     }
