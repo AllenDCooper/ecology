@@ -50,6 +50,7 @@
   text-align: center;
 }
 
+
 .chart-title {
   text-align: left;
 }
@@ -176,12 +177,14 @@
 }
 
 .species-heading {
-  background-color: #d6d6d6;
+  /* background-color: #d6d6d6; */
+  /* background-color: rgb(239,239,239); */
   height: 35px;
   align-items: center;
   padding-left: 10px;
   font-size: 15px;
-  color: black;
+  /* color: black; */
+  color: teal;
   border-radius: 2px;
   margin-top: 0;
   margin-bottom: 8px;
@@ -215,7 +218,8 @@
   margin: 0px 1px 20px 0px;
 }
 
-#species-dropdown-btn {
+#visual-dropdown-btn1,
+#visual-dropdown-btn2 {
   width: 100%;
   border: none;
   text-align: center;
@@ -232,7 +236,7 @@
   color: white;
 }
 
-#logistic-type-dropdown-btn {
+ #species-dropdown-btn {
   width: 100%;
   border: none;
   text-align: center;
@@ -244,7 +248,24 @@
   /* background-color: teal;
   color: white; */
   border: 1px teal solid;
+  /* background-color: rgb(239,239,239); */
   color: teal
+}
+
+#logistic-type-dropdown-btn {
+  width: 100%;
+  border: none;
+  text-align: center;
+  font-weight: bold;
+  /* color: white;
+  background-color: #36454F; */
+  margin-bottom: 5px;
+  /* margin-top: 20px; */
+  background-color: teal;
+  color: white;
+  border: 1px teal solid;
+  /* background-color: rgb(239,239,239); */
+  /* color: teal */
 }
 
 #species-dropdown-label {
@@ -280,6 +301,10 @@
   display: inline-block;
   font-style: italic;
   text-align: left;
+  /* background-color: rgb(239, 239, 239); */
+  /* background-color: white; */
+  /* border: none; */
+  /* color: black; */
 }
 
 

@@ -361,8 +361,8 @@ function App() {
               }
               <div className='reset-btn-container'>
                 <Button className='reset-btn'
-                  variant="outline"
-                  // color={'base'}
+                  // variant="outline"
+                  color={'base'}
                   onClick={handleReset}>
                   Reset
                 </Button>
@@ -444,7 +444,8 @@ function App() {
             {dataObj.multipleCharts ?
               <Dropdown
                 buttonContents={display}
-                buttonClass={'data-select-btn'}
+                // buttonClass={'data-select-btn'}
+                buttonId={'visual-dropdown-btn1'}
                 onChange={handleDisplayChange}
                 matchWidth='button'
                 buttonWidth={'100%'}
@@ -456,7 +457,8 @@ function App() {
               :
               <Dropdown
                 buttonContents={display}
-                buttonClass={'data-select-btn'}
+                // buttonClass={'data-select-btn'}
+                buttonId={'visual-dropdown-btn2'}
                 onChange={handleDisplayChange}
                 matchWidth='button'
                 buttonWidth={'100%'}
