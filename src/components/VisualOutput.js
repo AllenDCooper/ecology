@@ -3,6 +3,14 @@ import React from "react";
 // this component creates a visual representation of a value (n) by rendering an element n times. 
 
 const VisualOutput = (props) => {
+  console.log(props.height)
+  console.log(props.width)
+  const area = props.height * props.width
+  console.log(area);
+  const maxItemsPerRow = Math.floor(props.width / 16);
+  const maxRows = Math.floor(props.height / 16)
+  const maxItems = maxItemsPerRow * maxRows
+  console.log(maxItems)
   const getFontSize = (nVal) => {
     if (nVal < 48) {
       return 24
@@ -19,7 +27,7 @@ const VisualOutput = (props) => {
 
   if (!Array.isArray(props.nValue)) {
     // place a ceiling on nVal to prevent crashing
-    const nValAdj = props.nValue > 1000 ? "1000.00" : props.nValue
+    const nValAdj = props.nValue > maxItems ? maxItems : props.nValue
     const numOfDigits = nValAdj.toString().length - 2
     const newArr = []
     // scale font size
@@ -32,7 +40,7 @@ const VisualOutput = (props) => {
     return (
       newArr.map(element => (
         // getChunk()
-        <span style={{ fontSize: fontSize + 'px', margin: '0 2px' }}>
+        <span style={{ fontSize: '12px', height: '16px', width: '16px' }}>
           {/* &#129451; */}
           {props.emoji}
         </span>
@@ -53,16 +61,16 @@ const VisualOutput = (props) => {
           length: N1,
           ratio: N2 / N1,
           larger: 'N1',
-          icon1: <span style={{ fontSize: fontSize, margin: '0 2px' }}>{props.emoji.species1[0]}</span>,
-          icon2: <span style={{ fontSize: fontSize, margin: '0 2px' }}>{props.emoji.species2[0]}</span>,
+          icon1: <span style={{ fontSize: '8px', height: '16px', width: '16px' }}>{props.emoji.species1[0]}</span>,
+          icon2: <span style={{ fontSize: '8px', height: '16px', width: '16px' }}>{props.emoji.species2[0]}</span>,
         }
       } else {
         return {
           length: N2,
           ratio: N1 / N2,
           larger: 'N2',
-          icon1: <span style={{ fontSize: fontSize, margin: '0 2px' }}>{props.emoji.species2[0]}</span>,
-          icon2: <span style={{ fontSize: fontSize, margin: '0 2px' }}>{props.emoji.species1[0]}</span>,
+          icon1: <span style={{ fontSize: '8px', height: '16px', width: '16px' }}>{props.emoji.species2[0]}</span>,
+          icon2: <span style={{ fontSize: '8px', height: '16px', width: '16px' }}>{props.emoji.species1[0]}</span>,
         }
       }
     }

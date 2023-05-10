@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import './App.css';
 // DATA
 // import { parametersObj, dataObj.speciesObj, equationsObj, graphSettings } from './utils/Data';
@@ -31,6 +31,8 @@ function App() {
       Object.keys(dataObj.speciesObj[logisticType])[0] :
       Object.keys(dataObj.speciesObj['Continuous'])[0]
   )
+  // REFS
+  const visualOutputRef = useRef(null);
   // helper function to set initial state
   const getStartObj = (parameterObj, speciesVals) => {
     const newObj = { species1: {}, species2: {}, general: {} }
@@ -56,6 +58,8 @@ function App() {
   const [showGraphPopDensity, setShowGraphPopDensity] = useState(true);
   const [showGraphOther, setShowGraphOther] = useState(false)
   const [display, setDisplay] = useState("Population Density");
+  const [height, setHeight] = useState(0)
+  const [width, setWidth] = useState(0)
 
   useEffect(() => {
     setLogisticType('Continuous')
@@ -81,6 +85,14 @@ function App() {
       setInputVals(getStartObj(LotkaVolterraPredation.parametersObj, LotkaVolterraPredation.speciesObj.Continuous[species]))
     }
   }, [dataSelect])
+
+  useEffect(() => {
+    console.log(visualOutputRef)
+    if (visualOutputRef.current) {
+      setHeight(visualOutputRef.current.getBoundingClientRect().height)
+      setWidth(visualOutputRef.current.getBoundingClientRect().width)
+    }
+  }, [display])
 
   const handleDataChange = (e) => {
     setDataSelect(e.value)
@@ -158,6 +170,11 @@ function App() {
     } else {
       return adjNum
     }
+  }
+
+  const getHeight = (ref) => {
+    console.log(ref)
+    return ref.offsetY
   }
 
   return (
@@ -281,7 +298,7 @@ function App() {
                       {eq.logisticType === logisticType ?
                         <OutputField
                           value={
-                            formatNumber(eq.calc(inputVals.t, inputVals), 8, 0)}
+                            formatNumber(eq.calc(inputVals.t, inputVals), 12, 0)}
                           tooltipName={eq.tooltipName}
                           tooltipText={eq.tooltipText}
                         />
@@ -320,14 +337,14 @@ function App() {
                         {eq.logisticType === logisticType ?
                           <OutputField
                             value={
-                              formatNumber(eq.calc(inputVals.t, inputVals), 8, 1)}
+                              formatNumber(eq.calc(inputVals.t, inputVals), 12, 1)}
                             tooltipName={[<span>N<sub>t</sub></span>]}
                             tooltipText={[<span><em>N<sub>t</sub></em>: Ending population abundance</span>]}
                           />
                           :
                           <OutputField
                             value={
-                              formatNumber(eq.calc(inputVals.t, inputVals), 8, 1)
+                              formatNumber(eq.calc(inputVals.t, inputVals), 12, 1)
                             }
                             tooltipName={[<span><em>dN/dt</em></span>]}
                             tooltipText={[<span><em>dN/dt</em>: instantaneous per capita rate of population growth</span>]}
@@ -500,7 +517,7 @@ function App() {
               </div>
             }
             {display === 'Graphic' ?
-              <div className='visual-container'>
+              <div className='visual-container' ref={visualOutputRef}>
                 <div className={'animation-div'}>
                   <VisualOutput
                     nValue={
@@ -508,6 +525,8 @@ function App() {
                     }
                     species={speciesSelected}
                     emoji={dataObj.speciesObj[logisticType][speciesSelected].emoji}
+                    height={height}
+                    width={width}
                   />
                 </div>
               </div>

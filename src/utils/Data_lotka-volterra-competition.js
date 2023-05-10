@@ -150,7 +150,7 @@ const LotkaVolterraCompetition = {
       //   },
       //   settings: { y: { min: 0 }, x: { min: 0 } }
       // },
-      'Rabbit-Squirrel': {
+      'Rabbit-Mouse': {
         values: {
           a: 0.63, r1: 1, k1: 250, n10: 10,
           b: 0.53, r2: 1, k2: 200, n20: 15,
@@ -158,11 +158,11 @@ const LotkaVolterraCompetition = {
         },
         name: {
           species1: 'Rabbit',
-          species2: 'Chipmunk'
+          species2: 'Mouse'
         },
         emoji: {
           species1: [<span>&#128007;</span>],
-          species2: [<span>&#128063;</span>],
+          species2: [<span>&#128000;</span>],
         },
         settings: { y: { min: 0, max: 500 }, x: { min: 0, max: 500 } }
       },
