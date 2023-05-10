@@ -326,6 +326,11 @@
   /* padding: 5px 0px 0px 25px; */
 }
 
+.visual-scale-container {
+  width: 100%;
+  text-align: left;
+}
+
 .tangent-switch-container {
   width: 100%;
   /* display: inline-flex;

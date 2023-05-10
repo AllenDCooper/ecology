@@ -8,9 +8,12 @@ const VisualOutput = (props) => {
   const area = props.height * props.width
   console.log(area);
   const maxItemsPerRow = Math.floor(props.width / 16);
-  const maxRows = Math.floor(props.height / 16)
+  const maxRows = Math.floor((props.height - 26) / 16)
   const maxItems = maxItemsPerRow * maxRows
   console.log(maxItems)
+  const isScale = props.nValue > maxItems ? true : false
+  console.log(isScale)
+  const scale = (props.nValue / maxItems).toFixed(2)
   const getFontSize = (nVal) => {
     if (nVal < 48) {
       return 24
@@ -38,13 +41,20 @@ const VisualOutput = (props) => {
     }
 
     return (
-      newArr.map(element => (
-        // getChunk()
-        <span style={{ fontSize: '12px', height: '16px', width: '16px' }}>
-          {/* &#129451; */}
-          {props.emoji}
-        </span>
-      ))
+      <>
+        {newArr.map(element => (
+          // getChunk()
+          <span style={{ fontSize: '12px', height: '16px', width: '16px' }}>
+            {/* &#129451; */}
+            {props.emoji}
+          </span>
+        ))
+        }
+        {isScale ?
+          <div className='visual-scale-container'>1 {props.emoji[0]} = {scale}</div>
+          :
+          null}
+      </>
     )
   } else {
     const curIndex = props.nValue.length - 1
@@ -95,9 +105,16 @@ const VisualOutput = (props) => {
     const outputArr = generateArr()
 
     return (
-      outputArr.map(element => (
-        element
-      ))
+      <>
+        {isScale ?
+          <div>1 {props.emoji[0]} = {scale}</div>
+          :
+          null}
+        {outputArr.map(element => (
+          element
+        ))
+        }
+      </>
     )
   }
 }
