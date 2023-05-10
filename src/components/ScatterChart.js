@@ -25,7 +25,7 @@ const ScatterChart = (props) => {
   console.log(newArr)
   return (
     <div className={props.multipleCharts ? "chart-container-split" : "chart-container"}>
-      <h5 className='chart-title'>{props.chartTitle}</h5>
+      {/* <h5 className='chart-title'>{props.chartTitle}</h5> */}
       <Scatter
         options={{
           aspectRatio: 1,

@@ -106,9 +106,10 @@ const Logistic = {
   },
   equationsObj: [
     {
-      name: 'Continuous',
+      name: 'Population Density',
       plot: true,
-      alwaysShow: false,
+      populationDensity: true,
+      alwaysShow: true,
       logisticType: "Continuous",
       addPoint: true,
       displayOutput: true,
@@ -130,7 +131,7 @@ const Logistic = {
       }
     },
     {
-      name: 'Discrete',
+      name: 'Population Density',
       plot: true,
       alwaysShow: false,
       logisticType: "Discrete",
@@ -213,7 +214,7 @@ const Logistic = {
     {
       name: 'kAsymptote',
       plot: true,
-      alwaysShow: true,
+      alwaysShow: false,
       logisticType: "Continuous",
       addPoint: false,
       displayOutput: false,

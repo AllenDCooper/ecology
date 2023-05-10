@@ -66,9 +66,10 @@ const Exponential = {
   equationsObj: [
     // tangent equation formula that calculates y values from given parametersObj
     {
-      name: 'Continuous',
+      name: 'Population Density',
       plot: true,
-      alwaysShow: false,
+      populationDensity: true,
+      alwaysShow: true,
       logisticType: "Continuous",
       addPoint: true,
       displayOutput: true,
@@ -90,6 +91,7 @@ const Exponential = {
     {
       name: 'tangent',
       plot: true,
+      populationDensity: true,
       alwaysShow: false,
       logisticType: "Continuous",
       addPoint: false,

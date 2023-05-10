@@ -206,6 +206,15 @@
   margin: 0px 1px;
 }
 
+.reset-btn-container {
+  width: 100%;
+}
+
+.reset-btn {
+  width: 100%;
+  margin: 0px 1px 20px 0px;
+}
+
 #species-dropdown-btn {
   width: 100%;
   border: none;

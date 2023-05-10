@@ -53,6 +53,9 @@ function App() {
   const [intervalID, setIntervalID] = useState(null)
   const [showVisual, setShowVisual] = useState(false)
   const [showTangent, setShowTangent] = useState(false)
+  const [showGraphPopDensity, setShowGraphPopDensity] = useState(true);
+  const [showGraphOther, setShowGraphOther] = useState(false)
+  const [display, setDisplay] = useState("Population Density");
 
   useEffect(() => {
     setLogisticType('Continuous')
@@ -81,6 +84,11 @@ function App() {
 
   const handleDataChange = (e) => {
     setDataSelect(e.value)
+  }
+
+  const handleDisplayChange = (e) => {
+    console.log(e)
+    setDisplay(e.value)
   }
   // generic change handler for input values
   const handleInputChange = (e) => {
@@ -113,6 +121,14 @@ function App() {
   }
   const handleTangentSwitch = (e) => {
     setShowTangent(prevState => (!prevState))
+  }
+  const handleGraphShowPopDensity = () => {
+    console.log('pop density clicked')
+    setShowGraphPopDensity(prevState => (!prevState))
+  }
+  const handleGraphShowOther = () => {
+    console.log('other clicked')
+    setShowGraphOther(prevState => (!prevState))
   }
   // UTILITIES
   // function to start interval, assign it an id, and set it in state
@@ -162,7 +178,7 @@ function App() {
       </div>
       <Header logisticType={logisticType} header={dataObj.header} />
       <div className="general-pane">
-        {dataObj.modelSettings.usingDiscrete ?
+        {/* {dataObj.modelSettings.usingDiscrete ?
           <Dropdown
             buttonContents={logisticType}
             onChange={handleLogisticType}
@@ -185,12 +201,36 @@ function App() {
           key={parseInt(dataObj.key) + (logisticType === "Continuous" ? 0 : 1)}
           dataSelect={dataSelect}
           logisticType={logisticType}
-        />
+        /> */}
       </div>
       <div className="row" >
         <div className="col input-col">
           <div className="data-pane">
             <div className="input-grp">
+              {dataObj.modelSettings.usingDiscrete ?
+                <Dropdown
+                  buttonContents={logisticType}
+                  onChange={handleLogisticType}
+                  buttonWidth={'100%'}
+                  // buttonClass={'logistic-type-dropdown-btn'}
+                  buttonId={'logistic-type-dropdown-btn'}
+                  matchWidth={'button'}
+                >
+                  <Dropdown.Option name='Continuous' selected='true'>Continuous</Dropdown.Option>
+                  <Dropdown.Option name='Discrete'>Discrete</Dropdown.Option>
+                </Dropdown>
+                :
+                null
+
+              }
+              <SpeciesDropdown
+                speciesSelected={speciesSelected}
+                handleSpeciesChange={handleSpeciesChange}
+                speciesObj={dataObj.speciesObj[logisticType]}
+                key={parseInt(dataObj.key) + (logisticType === "Continuous" ? 0 : 1)}
+                dataSelect={dataSelect}
+                logisticType={logisticType}
+              />
             </div>
             <div className="input-grp">
               <div className="general-pane">
@@ -302,6 +342,14 @@ function App() {
                 :
                 null
               }
+              <div className='reset-btn-container'>
+                <Button className='reset-btn'
+                  variant="outline"
+                  // color={'base'}
+                  onClick={handleReset}>
+                  Reset
+                </Button>
+              </div>
             </div>
             <div className='tangent-switch-container'>
               {dataSelect === 'Exponential' || (dataSelect === 'Logistic' && logisticType === "Continuous")
@@ -323,71 +371,135 @@ function App() {
                 <Switch
                   labelClass='switch-label'
                   className='switch-btn'
-                  label={[<span>Visual</span>]}
-                  checked={false}
-                  onToggle={handleVisualToggle}
-                // key={dataObj.key}
-                />
-              </div>
-              <div className='switch-container'>
-                <Switch
-                  labelClass='switch-label'
-                  className='switch-btn'
                   label={[<span>Animation</span>]}
                   checked={false}
                   onToggle={handleAnimationToggle}
                 // key={dataObj.key}
                 />
               </div>
+              {/* <Button className='control-btn'
+              variant="outline"
+              // color={'base'}
+              onClick={handleReset}>
+                Reset
+              </Button> */}
+              {/* {dataObj.equationsObj.map((element, index) => (
+                element.alwaysShow ?
+                  element.populationDensity ?
+                    <div className='switch-container'>
+                      <Switch
+                        labelClass='switch-label'
+                        className='switch-btn'
+                        label={[<span>Population Density</span>]}
+                        checked={true}
+                        onToggle={handleGraphShowPopDensity}
+                      // key={dataObj.key}
+                      />
+                    </div>
+                    :
+                    <div className='switch-container'>
+                      <Switch
+                        labelClass='switch-label'
+                        className='switch-btn'
+                        label={[<span>{element.name}</span>]}
+                        // checked={graphshow}
+                        onToggle={handleGraphShowOther}
+                      // key={dataObj.key}
+                      />
+                    </div>
+                  : null
+              ))} */}
             </div>
+            {/* <div className='switch-container'>
+              <Switch
+                labelClass='switch-label'
+                className='switch-btn'
+                label={[<span>Visual</span>]}
+                checked={false}
+                onToggle={handleVisualToggle}
+              // key={dataObj.key}
+              />
+            </div> */}
           </div>
         </div>
         <div className='col'>
           <div className={dataObj.multipleCharts ? "chart-pane-split" : "chart-pane"}>
             {dataObj.multipleCharts ?
+              <Dropdown
+                buttonContents={display}
+                buttonClass={'data-select-btn'}
+                onChange={handleDisplayChange}
+                matchWidth='button'
+                buttonWidth={'100%'}
+              >
+                <Dropdown.Option name='chart1' selected='true'>Population Density</Dropdown.Option>
+                <Dropdown.Option name='chart2'>Graph2</Dropdown.Option>
+                <Dropdown.Option name='graphic'>Graphic</Dropdown.Option>
+              </Dropdown>
+              :
+              <Dropdown
+                buttonContents={display}
+                buttonClass={'data-select-btn'}
+                onChange={handleDisplayChange}
+                matchWidth='button'
+                buttonWidth={'100%'}
+              >
+                <Dropdown.Option name='chart1' selected='true'>Population Density</Dropdown.Option>
+                <Dropdown.Option name='graphic'>Graphic</Dropdown.Option>
+              </Dropdown>
+            }
+            {dataObj.multipleCharts ?
               <div className='line-chart-container'
               >
-                <ChartContainer
-                  inputVals={inputVals}
-                  equationsObj={dataObj.equationsObj.filter(eq => !eq.isRK)}
-                  tMax={inputVals.tmax}
-                  logisticType={logisticType}
-                  speciesSettings={dataObj.speciesObj[logisticType][speciesSelected].settings}
-                  graphOptions={dataObj.graphSettings}
-                  multipleCharts={dataObj.multipleCharts}
-                  key={1}
-                  name={dataObj.speciesObj[logisticType][speciesSelected].name}
-                  chartTitle={dataObj.chartTitle[0]}
-                />
-                <ChartContainer
-                  inputVals={inputVals}
-                  equationsObj={dataObj.equationsObj.filter(eq => eq.isRK)}
-                  tMax={inputVals.tmax}
-                  logisticType={logisticType}
-                  speciesSettings={dataObj.speciesObj[logisticType][speciesSelected].settings}
-                  graphOptions={dataObj.graphSettings}
-                  multipleCharts={dataObj.multipleCharts}
-                  key={2}
-                  name={dataObj.speciesObj[logisticType][speciesSelected].name}
-                  chartTitle={dataObj.chartTitle[1]}
-                />
+                <div style={display === 'Population Density' ? { display: 'block' } : { display: 'none' }}>
+                  <ChartContainer
+                    // style={showGraphPopDensity ? { display: 'block' } : { display: 'none' }}
+                    inputVals={inputVals}
+                    equationsObj={dataObj.equationsObj.filter(eq => eq.isRK)}
+                    tMax={inputVals.tmax}
+                    logisticType={logisticType}
+                    speciesSettings={dataObj.speciesObj[logisticType][speciesSelected].settings}
+                    graphOptions={dataObj.graphSettings}
+                    multipleCharts={dataObj.multipleCharts}
+                    key={1}
+                    name={dataObj.speciesObj[logisticType][speciesSelected].name}
+                    chartTitle={dataObj.chartTitle[1]}
+                  />
+                </div>
+                <div style={display === 'Graph2' ? { display: 'block' } : { display: 'none' }}>
+                  <ChartContainer
+                    // style={showGraphOther ? { display: 'block' } : { display: 'none' }}
+                    inputVals={inputVals}
+                    equationsObj={dataObj.equationsObj.filter(eq => !eq.isRK)}
+                    tMax={inputVals.tmax}
+                    logisticType={logisticType}
+                    speciesSettings={dataObj.speciesObj[logisticType][speciesSelected].settings}
+                    graphOptions={dataObj.graphSettings}
+                    multipleCharts={dataObj.multipleCharts}
+                    key={2}
+                    name={dataObj.speciesObj[logisticType][speciesSelected].name}
+                    chartTitle={dataObj.chartTitle[0]}
+                  />
+                </div>
               </div>
               :
-              <ChartContainer
-                inputVals={inputVals}
-                equationsObj={dataObj.equationsObj}
-                tMax={dataObj.parametersObj.general.t.max}
-                logisticType={logisticType}
-                speciesSettings={dataObj.speciesObj[logisticType][speciesSelected].settings}
-                graphOptions={dataObj.graphSettings}
-                multipleCharts={dataObj.multipleCharts}
-                key={0}
-                showTangent={showTangent}
-                name={dataObj.speciesObj[logisticType][speciesSelected].name}
-                chartTitle={dataObj.chartTitle}
-              />
+              <div style={display === 'Population Density' ? { display: 'block' } : { display: 'none' }}>
+                <ChartContainer
+                  inputVals={inputVals}
+                  equationsObj={dataObj.equationsObj}
+                  tMax={dataObj.parametersObj.general.t.max}
+                  logisticType={logisticType}
+                  speciesSettings={dataObj.speciesObj[logisticType][speciesSelected].settings}
+                  graphOptions={dataObj.graphSettings}
+                  multipleCharts={dataObj.multipleCharts}
+                  key={0}
+                  showTangent={showTangent}
+                  name={dataObj.speciesObj[logisticType][speciesSelected].name}
+                  chartTitle={dataObj.chartTitle}
+                />
+              </div>
             }
-            {showVisual ?
+            {display === 'Graphic' ?
               <div className='visual-container'>
                 <div className={'animation-div'}>
                   <VisualOutput
@@ -413,9 +525,9 @@ function App() {
           {/* <Button className='control-btn' variant="solid" color={'base'} onClick={handleVisualToggle}>
             {!showVisual ? 'Show Visual' : 'Hide Visual'}
           </Button> */}
-          <Button className='control-btn' variant="solid" color={'base'} onClick={handleReset}>
+          {/* <Button className='control-btn' variant="solid" color={'base'} onClick={handleReset}>
             Reset
-          </Button>
+          </Button> */}
         </div>
       </div>
     </div >
