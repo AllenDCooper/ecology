@@ -106,8 +106,10 @@ const VisualOutput = (props) => {
 
     return (
       <>
-
-        <div style={isScale ? { visibility: 'visible' } : { visibility: 'hidden' }}>1 {props.emoji[0]} = {scale}</div>
+        {isScale ?
+          <div>1 {props.emoji[0]} = {scale}</div>
+          :
+          null}
         {outputArr.map(element => (
           element
         ))
