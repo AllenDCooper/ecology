@@ -16,6 +16,7 @@ import Header from "./components/Header";
 import SpeciesDropdown from "./components/SpeciesDropdown";
 import InputField from "./components/InputField";
 import OutputField from "./components/OutputField";
+import Explanation from "./components/Explanation";
 // CHART.JS
 import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);
@@ -162,6 +163,10 @@ function App() {
   return (
     <div className="App" >
       <Header logisticType={logisticType} header={dataObj.header} />
+      {dataSelect === 'LotkaVolterraCompetition' && display === 'Isoclines/Phase Plane' ?
+        <Explanation inputVals={inputVals}/>
+        :
+        null}
       <div className="general-pane">
       </div>
       <div className="row" >
@@ -438,13 +443,13 @@ function App() {
           </div>
         </div>
       </div>
-      <div style={{position: 'absolute', right: '0', top: '0'}}>
+      <div style={{ position: 'absolute', right: '0', top: '0' }}>
         <Dropdown
           buttonContents={dataSelect}
           buttonId={'data-select-btn'}
           onChange={handleDataChange}
-          // matchWidth='button'
-          // buttonWidth={'100%'}
+        // matchWidth='button'
+        // buttonWidth={'100%'}
         >
           <Dropdown.Option name='Exponential' selected='true'>Exponential</Dropdown.Option>
           <Dropdown.Option name='Logistic'>Logistic</Dropdown.Option>
