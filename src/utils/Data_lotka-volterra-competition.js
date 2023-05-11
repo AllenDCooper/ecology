@@ -164,7 +164,10 @@ const LotkaVolterraCompetition = {
           species1: [<span>&#128007;</span>],
           species2: [<span>&#128000;</span>],
         },
-        settings: { y: { min: 0, max: 500 }, x: { min: 0, max: 500 } }
+        settings: {
+          y: { min: 0, max: 500 },
+          x: { min: 0, max: 500 }
+        }
       },
       'Cat-Dog': {
         values: {
@@ -180,7 +183,7 @@ const LotkaVolterraCompetition = {
           species1: [<span>&#x1F408;</span>],
           species2: [<span>&#x1F408;</span>],
         },
-        settings: { y: { min: 0, max: 500 }, x: { min: 0, max: 500 } }
+        // settings: { y: { min: 0, max: 500 }, x: { min: 0, max: 500 } }
       },
     }
   },

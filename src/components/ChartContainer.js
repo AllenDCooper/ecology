@@ -106,6 +106,7 @@ const ChartContainer = (props) => {
   const generateChartDataObj = (inputObj) => {
     const newDataset = [], newLabel = []
     const newEquationsObjArr = Object.entries(props.equationsObj).filter(([key, value]) => (props.logisticType === value.logisticType) || value.alwaysShow)
+    console.log(newEquationsObjArr)
     newEquationsObjArr.forEach(([key, value], index) => {
       if (value.isRK) {
         let newPointSet1

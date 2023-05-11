@@ -20,7 +20,6 @@ import OutputField from "./components/OutputField";
 import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);
 
-
 function App() {
   // HOOKS
   const [dataObj, setDataObj] = useState(Exponential)
@@ -112,10 +111,6 @@ function App() {
     else if (animationOn) { clearAnimation() }
     setAnimationOn(!animationOn)
   }
-  // click handler to turn on and off the display of the visual when button is clicked
-  const handleVisualToggle = () => {
-    setShowVisual(!showVisual)
-  }
   // function for handling reset
   const handleReset = () => {
     // const speciesVals = dataObj.speciesObj[logisticType][speciesSelected].values
@@ -133,14 +128,6 @@ function App() {
   }
   const handleTangentSwitch = (e) => {
     setShowTangent(prevState => (!prevState))
-  }
-  const handleGraphShowPopDensity = () => {
-    console.log('pop density clicked')
-    setShowGraphPopDensity(prevState => (!prevState))
-  }
-  const handleGraphShowOther = () => {
-    console.log('other clicked')
-    setShowGraphOther(prevState => (!prevState))
   }
   // UTILITIES
   // function to start interval, assign it an id, and set it in state
@@ -172,53 +159,10 @@ function App() {
     }
   }
 
-  const getHeight = (ref) => {
-    console.log(ref)
-    return ref.offsetY
-  }
-
   return (
     <div className="App" >
-      <div className='data-select'>
-        <Dropdown
-          buttonContents={dataSelect}
-          buttonClass={'data-select-btn'}
-          onChange={handleDataChange}
-          matchWidth='button'
-          buttonWidth={'100%'}
-        >
-          <Dropdown.Option name='Exponential' selected='true'>Exponential</Dropdown.Option>
-          <Dropdown.Option name='Logistic'>Logistic</Dropdown.Option>
-          <Dropdown.Option name='LotkaVolterraCompetition'>LotkaVolterraCompetition</Dropdown.Option>
-          <Dropdown.Option name='LotkaVolterraPredation'>LotkaVolterraPredation</Dropdown.Option>
-        </Dropdown>
-      </div>
       <Header logisticType={logisticType} header={dataObj.header} />
       <div className="general-pane">
-        {/* {dataObj.modelSettings.usingDiscrete ?
-          <Dropdown
-            buttonContents={logisticType}
-            onChange={handleLogisticType}
-            buttonWidth={'100%'}
-            // buttonClass={'logistic-type-dropdown-btn'}
-            buttonId={'logistic-type-dropdown-btn'}
-            matchWidth={'button'}
-          >
-            <Dropdown.Option name='Continuous' selected='true'>Continuous</Dropdown.Option>
-            <Dropdown.Option name='Discrete'>Discrete</Dropdown.Option>
-          </Dropdown>
-          :
-          null
-
-        }
-        <SpeciesDropdown
-          speciesSelected={speciesSelected}
-          handleSpeciesChange={handleSpeciesChange}
-          speciesObj={dataObj.speciesObj[logisticType]}
-          key={parseInt(dataObj.key) + (logisticType === "Continuous" ? 0 : 1)}
-          dataSelect={dataSelect}
-          logisticType={logisticType}
-        /> */}
       </div>
       <div className="row" >
         <div className="col input-col">
@@ -238,7 +182,6 @@ function App() {
                 </Dropdown>
                 :
                 null
-
               }
               <SpeciesDropdown
                 speciesSelected={speciesSelected}
@@ -290,7 +233,6 @@ function App() {
                     :
                     null
                 ))}
-
                 {dataObj.equationsObj.map((eq) => (
                   eq.displayOutput && (eq.logisticType === logisticType) && (!eq.isTangent || showTangent)
                     ?
@@ -394,49 +336,7 @@ function App() {
                 // key={dataObj.key}
                 />
               </div>
-              {/* <Button className='control-btn'
-              variant="outline"
-              // color={'base'}
-              onClick={handleReset}>
-                Reset
-              </Button> */}
-              {/* {dataObj.equationsObj.map((element, index) => (
-                element.alwaysShow ?
-                  element.populationDensity ?
-                    <div className='switch-container'>
-                      <Switch
-                        labelClass='switch-label'
-                        className='switch-btn'
-                        label={[<span>Population Density</span>]}
-                        checked={true}
-                        onToggle={handleGraphShowPopDensity}
-                      // key={dataObj.key}
-                      />
-                    </div>
-                    :
-                    <div className='switch-container'>
-                      <Switch
-                        labelClass='switch-label'
-                        className='switch-btn'
-                        label={[<span>{element.name}</span>]}
-                        // checked={graphshow}
-                        onToggle={handleGraphShowOther}
-                      // key={dataObj.key}
-                      />
-                    </div>
-                  : null
-              ))} */}
             </div>
-            {/* <div className='switch-container'>
-              <Switch
-                labelClass='switch-label'
-                className='switch-btn'
-                label={[<span>Visual</span>]}
-                checked={false}
-                onToggle={handleVisualToggle}
-              // key={dataObj.key}
-              />
-            </div> */}
           </div>
         </div>
         <div className='col'>
@@ -451,7 +351,7 @@ function App() {
                 buttonWidth={'100%'}
               >
                 <Dropdown.Option name='chart1' selected='true'>Population Density</Dropdown.Option>
-                <Dropdown.Option name='chart2'>Graph2</Dropdown.Option>
+                <Dropdown.Option name='chart2'>Isoclines/Phase Plane</Dropdown.Option>
                 <Dropdown.Option name='graphic'>Graphic</Dropdown.Option>
               </Dropdown>
               :
@@ -485,7 +385,7 @@ function App() {
                     chartTitle={dataObj.chartTitle[1]}
                   />
                 </div>
-                <div style={display === 'Graph2' ? { display: 'block' } : { display: 'none' }}>
+                <div style={display === 'Isoclines/Phase Plane' ? { display: 'block' } : { display: 'none' }}>
                   <ChartContainer
                     // style={showGraphOther ? { display: 'block' } : { display: 'none' }}
                     inputVals={inputVals}
@@ -538,18 +438,19 @@ function App() {
           </div>
         </div>
       </div>
-      <div className='data-pane2'>
-        <div className='btn-container2'>
-          {/* <Button className='control-btn' variant="solid" color={'base'} onClick={handleAnimationToggle}>
-            {!animationOn ? 'Start Animation' : 'Stop Animation'}
-          </Button> */}
-          {/* <Button className='control-btn' variant="solid" color={'base'} onClick={handleVisualToggle}>
-            {!showVisual ? 'Show Visual' : 'Hide Visual'}
-          </Button> */}
-          {/* <Button className='control-btn' variant="solid" color={'base'} onClick={handleReset}>
-            Reset
-          </Button> */}
-        </div>
+      <div style={{position: 'absolute', right: '0', top: '0'}}>
+        <Dropdown
+          buttonContents={dataSelect}
+          buttonId={'data-select-btn'}
+          onChange={handleDataChange}
+          // matchWidth='button'
+          // buttonWidth={'100%'}
+        >
+          <Dropdown.Option name='Exponential' selected='true'>Exponential</Dropdown.Option>
+          <Dropdown.Option name='Logistic'>Logistic</Dropdown.Option>
+          <Dropdown.Option name='LotkaVolterraCompetition'>LotkaVolterraCompetition</Dropdown.Option>
+          <Dropdown.Option name='LotkaVolterraPredation'>LotkaVolterraPredation</Dropdown.Option>
+        </Dropdown>
       </div>
     </div >
   );

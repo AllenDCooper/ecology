@@ -46,10 +46,13 @@
   text-align: center;
 }
 
-.data-select-btn {
+#data-select-btn {
   text-align: center;
+  background-color: teal;
+  color: white;
+  font-weight: bold;
+  width: 100%;
 }
-
 
 .chart-title {
   text-align: left;
@@ -331,8 +334,9 @@
 .equation-heading-container {
   display: flex;
   flex-direction: row;
-  align-content: center;
-  justify-content: center;
+  align-content: left;
+  justify-content: left;
+  text-align: left;
 }
 
 .equation-heading {
@@ -394,7 +398,7 @@
 }
 
 .chart-title {
-  text-align: center;
+  text-align: left;
   margin-bottom: 0px;
   color: #313131;
 }

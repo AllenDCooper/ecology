@@ -109,7 +109,7 @@ const Logistic = {
       name: 'Population Density',
       plot: true,
       populationDensity: true,
-      alwaysShow: true,
+      alwaysShow: false,
       logisticType: "Continuous",
       addPoint: true,
       displayOutput: true,
@@ -147,6 +147,7 @@ const Logistic = {
         pointRadius: 0,
       },
       calc: (x, hook) => {
+        console.log(x)
         if (x % 1 === 0) {
           const { t, n0, k, rMax, rDis } = hook
           let nt = n0;
@@ -214,7 +215,7 @@ const Logistic = {
     {
       name: 'kAsymptote',
       plot: true,
-      alwaysShow: false,
+      alwaysShow: true,
       logisticType: "Continuous",
       addPoint: false,
       displayOutput: false,

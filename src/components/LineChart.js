@@ -13,7 +13,7 @@ function LineChart(props) {
 
   const x = {
     min: 0,
-    // max: 500,
+    max: props.chartTitle==='isoclines' ? 500 : 1000,
     title: {
       display: true,
       text: 'Time (t)',
@@ -70,7 +70,7 @@ function LineChart(props) {
       }
     },
     scales: {
-      x: { ...x, ...props.speciesSettings.x },
+      x: { ...x },
       y: { ...y, ...props.speciesSettings.y },
     },
     animations: false

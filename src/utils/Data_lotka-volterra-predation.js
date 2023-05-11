@@ -147,9 +147,11 @@ const LotkaVolterraPredation = {
         pointRadius: 0,
       },
       calc: (x, hook) => {
-        const { r, f, cf, d, ne0, np0, t, tmax } = hook
-        const Nt = 1000
-        let ys = [[np0, ne0]]
+        const { r, f, cf, d, ne0, np0, t, tmax } = hook  //parameters from state obj
+        const Nt = 1000  //num of increments
+        let ys = [[np0, ne0]]  // starting value
+        
+        // derivative formula for Lotka Volterra Predation model
         const derivative = (X, r, f, cf, d) => {
           let x = parseFloat(X[0]);
           let y = parseFloat(X[1]);
@@ -157,20 +159,21 @@ const LotkaVolterraPredation = {
           let doty = (cf * x * y) - (d * y)
           return [dotx, doty];
         }
-        let h = tmax / Nt;
-        let max = Math.floor(x / h)
-
-        for (let i = 0; i < max; i++) {
-          const rkFactor1 = [ys[i][0], ys[i][1]]
-          const rk1 = derivative(rkFactor1, r, f, cf, d)
-          const rkFactor2 = [ys[i][0] + h / 2, ys[i][1] + (rk1[1] * (h / 2))]
-          const rk2 = derivative(rkFactor2, r, f, cf, d)
-          const rkFactor3 = [ys[i][0] + h / 2, ys[i][1] + (rk2[1] * (h / 2))]
-          const rk3 = derivative(rkFactor3, r, f, cf, d)
-          const rkFactor4 = [ys[i][0] + h, ys[i][1] + (rk3[1] * h)]
-          const rk4 = derivative(rkFactor4, r, f, cf, d)
-          const xCalc = (ys[i][0] + ((rk1[0] + (2 * rk2[0]) + (2 * rk3[0]) + rk4[0]) / 6) * h);
-          const yCalc = (ys[i][1] + ((rk1[1] + (2 * rk2[1]) + (2 * rk3[1]) + rk4[1]) / 6) * h);
+        
+        // Runge-Kutta 4th Order Method
+        let h = tmax / Nt;  //increment size
+        let max = Math.floor(x / h)  //increment max
+        for (let i = 0; i < max; i++) {  //loop through increments
+          const rkFactor1 = [ys[i][0], ys[i][1]]  //get starting point
+          const rk1 = derivative(rkFactor1, r, f, cf, d)  //get slope at starting point
+          const rkFactor2 = [ys[i][0] + h / 2, ys[i][1] + (rk1[1] * (h / 2))]  //get midpoint1
+          const rk2 = derivative(rkFactor2, r, f, cf, d)  //get slope at midpoint using rkFactor2
+          const rkFactor3 = [ys[i][0] + h / 2, ys[i][1] + (rk2[1] * (h / 2))]  //get midpoint2
+          const rk3 = derivative(rkFactor3, r, f, cf, d)  //get slope at midpoint using rkFactor3
+          const rkFactor4 = [ys[i][0] + h, ys[i][1] + (rk3[1] * h)]  //get endpoint
+          const rk4 = derivative(rkFactor4, r, f, cf, d) //get slope at endpoint
+          const xCalc = (ys[i][0] + ((rk1[0] + (2 * rk2[0]) + (2 * rk3[0]) + rk4[0]) / 6) * h);  //get weighted sums of all 4 slopes for x
+          const yCalc = (ys[i][1] + ((rk1[1] + (2 * rk2[1]) + (2 * rk3[1]) + rk4[1]) / 6) * h);  //get weighted sums of all 4 slopes for y
           ys[i + 1] = [xCalc, yCalc]
         }
         return ys
