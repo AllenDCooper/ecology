@@ -160,8 +160,21 @@ function App() {
     }
   }
 
+  const [protectedAssetLoaded, setProtectedAssetLoaded] = useState(false)
+  const imgLoad = () => {
+    console.log('image loaded')
+    setProtectedAssetLoaded(true)
+  }
+
+  useEffect(()=>{
+    console.log(protectedAssetLoaded)
+  }, [protectedAssetLoaded])
+
   return (
     <div className="App" >
+      <img src="https://services.wwnorton.com/aws/img?file=/wwnorton.college.protected/music/img/Ch24fig01.jpg"
+        alt="hidden" hidden onLoad={imgLoad}
+      />
       <Header logisticType={logisticType} header={dataObj.header} />
       {dataSelect === 'LotkaVolterraCompetition' && display === 'Isoclines/Phase Plane' ?
         <Explanation inputVals={inputVals}/>
